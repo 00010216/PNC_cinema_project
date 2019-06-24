@@ -2,3 +2,5 @@
 
 /target/
 /.classpath
+/pom.properties
+/MANIFEST.MF
