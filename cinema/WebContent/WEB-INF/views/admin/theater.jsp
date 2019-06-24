@@ -29,10 +29,18 @@
             	<p style="width: 100%;font-size: 24px;">Sala</p>
                 <div class="form-group"><label for="name">Nombre</label><input class="form-control" type="text" id="name"></div>
                 <div class="form-group"><label for="capacity">Descripción</label><input class="form-control" type="text" id="capacity"></div>
-                <div class="form-group"><label>Estado</label>
-    				<div class="form-check"><input type="radio" class="form-check-input" id="formCheck-2" style="display: inline;" /><label class="form-check-label" for="formCheck-2">Disponible</label></div>
-    				<div class="form-check"><input type="radio" class="form-check-input" id="formCheck-1" /><label class="form-check-label" for="formCheck-1">No disponible</label></div>
-				</div>
+                <div class="form-check-inline">
+					  <label class="form-check-label">
+					    <form:radiobutton checked="true" path="status" value="true" class="form-check-input"/> Disponible 
+					  </label>
+					</div>
+					<div class="form-check-inline">
+					  <label class="form-check-label">
+					    <form:radiobutton path="status" value="false" class="form-check-input"/> No disponible
+					  </label>
+					</div>
+								 					 						
+				 </div>
                 <div class="form-group"><button class="btn btn-primary" type="button">Guardar</button></div>
             </form>
         </div>
