@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
-    
+    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html style="height: 100%;overflow-y: hidden;">
 
@@ -24,8 +23,7 @@
             </ul>
         </div>
         <div class="col col-md-9" style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
-            
-            <form style="padding: 8px;width: 70%;">
+            <form:form action="${pageContext.request.contextPath}/login" method="POST" modelAttribute="theater" style="padding: 8px;width: 70%;">            
             	<p style="width: 100%;font-size: 24px;">Sala</p>
                 <div class="form-group"><label for="name">Nombre</label><input class="form-control" type="text" id="name"></div>
                 <div class="form-group"><label for="capacity">Descripción</label><input class="form-control" type="text" id="capacity"></div>
@@ -41,8 +39,8 @@
 					</div>
 								 					 						
 				 </div>
-                <div class="form-group"><button class="btn btn-primary" type="button">Guardar</button></div>
-            </form>
+                <div class="form-group"><button class="btn btn-primary" type="button">Guardar</button></div>            
+            </form:form>
         </div>
     </div>
     <div></div>
