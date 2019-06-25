@@ -1,8 +1,4 @@
-cinema/src/com/uca/cinema/configuration/JpaConfiguration.java
-cinema/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
-JpaConfiguration.java
-
+cinema/target/classes/com/uca/cinema/configuration/JpaConfiguration.class
 /target/
 /.classpath
-/pom.properties
-/MANIFEST.MF
+pom.xml
