@@ -24,7 +24,7 @@
 		<button class="btn btn-lg btn-outline-dark btn-block mt-4" type="submit">Ingresar</button>
 		
        	<c:if test = "${not empty error}">
-		<div class="alert alert-danger" role="alert">${message}</div>
+		<div class="alert alert-danger" role="alert">${error}</div>
         </c:if>
 		
 		<p class="mt-5 mb-3 text-muted">N Capas, 2019</p>

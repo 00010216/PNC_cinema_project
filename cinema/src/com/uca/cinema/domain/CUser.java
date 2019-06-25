@@ -47,6 +47,8 @@ public class CUser  {
 	private String passwd;
 
 	private Boolean status;
+	
+	private Boolean loggedin;
 
 	@Column(name="updated_by")
 	private Integer updatedBy;
@@ -295,6 +297,14 @@ public class CUser  {
 
 	public void setMunicipality(Municipality municipality) {
 		this.municipality = municipality;
+	}
+
+	public Boolean getLoggedin() {
+		return loggedin;
+	}
+
+	public void setLoggedin(Boolean loggedin) {
+		this.loggedin = loggedin;
 	}
 
 }
