@@ -1,5 +1,7 @@
 package com.uca.cinema.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -46,12 +49,25 @@ public class TheaterController {
 		}
 		else {						
 			theaterService.create(theater);
-			
+			redirectAttributes.addAttribute("message", "Se creo la Sala con exito");
 			redirect += "theaters";
 		}
 		
 		
 		return redirect;
 	}
+	
+	@RequestMapping(value="/theaters")
+	public ModelAndView showTheaters(@RequestParam(required=false) String message) {
+		ModelAndView mav = new ModelAndView();
+		
+		List<Theater> theaters = theaterService.getAll();
+		
+		mav.addObject("theaters", theaters);
+		mav.addObject("message", message);
+		mav.setViewName("admin/theaters");
+		return mav;
+	}
+	
 	
 }

@@ -148,5 +148,17 @@ public class Theater  {
 
 		return showtime;
 	}
+	
+	public String getDelegateStatus() {
+		String status = "";
+		if(this.status) {
+			status = "Disponible";
+		}
+		else {
+			status = "No disponible";
+		}
+		
+		return status;
+	}
 
 }
