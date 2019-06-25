@@ -1,5 +1,7 @@
 package com.uca.cinema.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +35,7 @@ public class TheaterController {
 	}
 	
 	@RequestMapping(value="/create-theater-register", method=RequestMethod.POST)
-	public String create(@Validated @ModelAttribute Theater theater, BindingResult result, RedirectAttributes redirectAttributes) {
+	public String create(@Valid @ModelAttribute Theater theater, BindingResult result, RedirectAttributes redirectAttributes) {
 		
 		String redirect = "redirect:/";		
 		if (result.hasErrors()) {					

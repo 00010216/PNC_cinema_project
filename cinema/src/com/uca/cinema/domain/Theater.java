@@ -17,8 +17,8 @@ import java.util.List;
 public class Theater  {
 
 	@Id
-	@SequenceGenerator(name="THEATER_IDTHEATER_GENERATOR", sequenceName="THEATER_ID_THEATER_SEQ")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="THEATER_IDTHEATER_GENERATOR")
+	@SequenceGenerator(name="theater_id_theater_seq", sequenceName="theater_id_theater_seq", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="theater_id_theater_seq")
 	@Column(name="id_theater")
 	private Integer idTheater;
 	
