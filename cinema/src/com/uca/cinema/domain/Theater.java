@@ -17,7 +17,7 @@ import java.util.List;
 public class Theater  {
 
 	@Id
-	@SequenceGenerator(name="THEATER_IDTHEATER_GENERATOR", sequenceName="THEATER_ID_THEATER_SEQ")
+	@SequenceGenerator(name="THEATER_IDTHEATER_GENERATOR", sequenceName="THEATER_ID_THEATER_SEQ",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="THEATER_IDTHEATER_GENERATOR")
 	@Column(name="id_theater")
 	private Integer idTheater;
@@ -33,10 +33,10 @@ public class Theater  {
 	@Column(name="created_date")
 	private Date createdDate;
 
-	@NotEmpty(message = "Este campo no puede estar vacío")	
+	@NotEmpty(message = "Este campo no puede estar vacï¿½o")	
 	private String description;
 	
-	@NotEmpty(message = "Este campo no puede estar vacío")
+	@NotEmpty(message = "Este campo no puede estar vacï¿½o")
 	private String name;
 	
 	private Boolean status;

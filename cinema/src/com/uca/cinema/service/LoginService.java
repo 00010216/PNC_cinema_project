@@ -7,5 +7,9 @@ import com.uca.cinema.domain.CUser;
 
 @Service
 public interface LoginService {
-	public CUser findbyUserAndPass(String user, String password) throws DataAccessException;
+	
+	public CUser authUser(String user, String password) throws DataAccessException;
+	
+	public void sessionUser(Boolean loggedin, Integer iduser) throws DataAccessException;
+	
 }

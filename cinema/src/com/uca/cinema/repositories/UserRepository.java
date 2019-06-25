@@ -13,5 +13,5 @@ public interface UserRepository extends JpaRepository<CUser, Integer>{
 	
 	@Modifying
 	@Query("update CUser u set u.loggedin = ?1 where u.idUser = ?2")
-	void setUserInfoById(boolean logged, Integer userId);
+	public void setUserInfoById(boolean logged, Integer userId);
 }

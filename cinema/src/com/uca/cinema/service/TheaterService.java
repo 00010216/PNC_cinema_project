@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.uca.cinema.domain.Theater;
 import com.uca.cinema.repositories.TheaterRepository;
@@ -23,7 +25,7 @@ public class TheaterService implements TheaterInterface{
 	@Override
 	public Theater getOne(Integer id) {
 		// TODO Auto-generated method stub
-		return theaterRepository.getOne(id);
+		return theaterRepository.findById(id).get();
 	}
 
 	@Override
@@ -38,9 +40,10 @@ public class TheaterService implements TheaterInterface{
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		theaterRepository.delete(id);
+		Theater t = getOne(id);
+		theaterRepository.delete(t);
 		
 	}
 	
