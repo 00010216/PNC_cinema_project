@@ -1,9 +1,6 @@
 package com.uca.cinema.domain;
 
 import javax.persistence.*;
-
-import org.springframework.lang.Nullable;
-
 import java.util.Date;
 import java.util.List;
 

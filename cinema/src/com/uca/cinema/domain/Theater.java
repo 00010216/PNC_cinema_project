@@ -1,6 +1,10 @@
 package com.uca.cinema.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +21,9 @@ public class Theater  {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="THEATER_IDTHEATER_GENERATOR")
 	@Column(name="id_theater")
 	private Integer idTheater;
-
+	
+	@Min(1)
+	@Max(100)
 	private Integer capacity;
 
 	@Column(name="created_by")
@@ -27,10 +33,12 @@ public class Theater  {
 	@Column(name="created_date")
 	private Date createdDate;
 
+	@NotEmpty(message = "Este campo no puede estar vacío")	
 	private String description;
-
+	
+	@NotEmpty(message = "Este campo no puede estar vacío")
 	private String name;
-
+	
 	private Boolean status;
 
 	@Column(name="updated_by")
