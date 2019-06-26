@@ -62,14 +62,15 @@
 									<td>${st.seats}</td>
 									<td>${st.price}</td>
 									<td>${st.status}</td>
-									<td style="display: flex;justify-content: center;align-items: center;">
-										<button class="btn" type="button" onclick="location.href='${pageContext.request.contextPath}/admin/edit-theater?id=${theater.getIdTheater()}'" style="/flex: 1;/margin-right: 8px;">
-											<i class="fa fa-edit" style="/margin-right: 8px;/"></i>										
-										</button>
-										<button class="btn btn-primary deleteButton" type="button" data-id="${theater.getIdTheater()}" data-toggle="modal" data-target="#deleteModal" data-url="${pageContext.request.contextPath}/admin/delete-theater-element?id=${theater.getIdTheater()}" 
-                                        	style="/flex: 1;/">
-                                        	<i class="fa fa-trash"></i>
-                                        </button>
+									<td>
+										<div class="btn-group d-flex justify-content-end " style="height: 40px;padding-top: 8px;">
+							                <button type = "button" class="btn btn-danger bmd-btn-fab bmd-btn-fab-sm" onclick = "">
+							                	<span data-feather="edit">
+							                </button>
+							                <button type="button" class="btn btn-danger bmd-btn-fab bmd-btn-fab-sm" onclick = "">
+							 					<span data-feather="trash-2"></span>
+											</button>
+					              		</div>
                                     </td>
 								</tr>
 							</c:forEach>
