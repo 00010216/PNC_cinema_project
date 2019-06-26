@@ -29,7 +29,7 @@
             <div style="width: 90%;display: flex;flex-direction: row;/*height: 10%;*/margin-bottom: 8px;justify-content: center;align-items: center;">
             	
                 <h1 style="flex: 10;">Salas</h1>
-                <button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/create-theater'" type="button" style="flex: 2;height: 37px;">
+                <button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/create-theater'" type="button" style="flex: 2;height: 37px;">
                 	<i class="fa fa-plus"></i>
                 	Registrar Sala
                 </button>                
@@ -64,10 +64,10 @@
 									<td><c:out value = "${theater.getCapacity()}"/></td>
 									<td><c:out value = "${theater.getDelegateStatus()}"/></td>			
 									<td style="display: flex;justify-content: center;align-items: center;">
-										<button class="btn" type="button" onclick="location.href='${pageContext.request.contextPath}/edit-theater?id=${theater.getIdTheater()}'" style="/*flex: 1;*/margin-right: 8px;">
+										<button class="btn" type="button" onclick="location.href='${pageContext.request.contextPath}/admin/edit-theater?id=${theater.getIdTheater()}'" style="/*flex: 1;*/margin-right: 8px;">
 											<i class="fa fa-edit" style="/*margin-right: 8px;*/"></i>										
 										</button>
-										<button class="btn btn-primary deleteButton" type="button" data-id="${theater.getIdTheater()}" data-toggle="modal" data-target="#deleteModal" data-url="${pageContext.request.contextPath}/delete-theater-element?id=${theater.getIdTheater()}" 
+										<button class="btn btn-primary deleteButton" type="button" data-id="${theater.getIdTheater()}" data-toggle="modal" data-target="#deleteModal" data-url="${pageContext.request.contextPath}/admin/delete-theater-element?id=${theater.getIdTheater()}" 
                                         	style="/*flex: 1;*/">
                                         	<i class="fa fa-trash"></i>
                                         </button>

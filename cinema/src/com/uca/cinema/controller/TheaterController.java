@@ -30,7 +30,7 @@ public class TheaterController {
 	@Autowired
 	TheaterInterface theaterService;
 	
-	@RequestMapping(value="/create-theater", method=RequestMethod.GET)
+	@RequestMapping(value="/admin/create-theater", method=RequestMethod.GET)
 	public ModelAndView createTheater(Model model) {
 		ModelAndView mav = new ModelAndView();
 		
@@ -44,7 +44,7 @@ public class TheaterController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/create-theater-register", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/create-theater-register", method=RequestMethod.POST)
 	public String create(@Valid @ModelAttribute Theater theater, BindingResult result, RedirectAttributes redirectAttributes) {
 		
 		String redirect = "redirect:/";		
@@ -52,19 +52,19 @@ public class TheaterController {
 			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.theater", result);
             redirectAttributes.addFlashAttribute("theater", theater);                        			
 			
-            redirect += "create-theater";
+            redirect += "admin/create-theater";
 		}
 		else {						
 			theaterService.create(theater);
 			redirectAttributes.addAttribute("message", "Se creo la Sala con exito");
-			redirect += "theaters";
+			redirect += "admin/theaters";
 		}
 		
 		
 		return redirect;
 	}
 	
-	@RequestMapping(value="/theaters")
+	@RequestMapping(value="/admin/theaters")
 	public ModelAndView showTheaters(@RequestParam(required=false) String message) {
 		ModelAndView mav = new ModelAndView();
 		
@@ -76,7 +76,7 @@ public class TheaterController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/edit-theater")
+	@RequestMapping(value="/admin/edit-theater")
 	public ModelAndView editTheater(@RequestParam String id, Model model) {
 		ModelAndView mav = new ModelAndView();
 		
@@ -92,7 +92,7 @@ public class TheaterController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/edit-theater-register", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/edit-theater-register", method=RequestMethod.POST)
 	public String edit(@Valid @ModelAttribute Theater theater, BindingResult result, RedirectAttributes redirectAttributes) {		
 		String redirect = "redirect:/";		
 		
@@ -101,18 +101,18 @@ public class TheaterController {
 			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.theater", result);			
             redirectAttributes.addFlashAttribute("theater", theater);       
             redirectAttributes.addAttribute("id", theater.getIdTheater());
-            redirect += "edit-theater";
+            redirect += "admin/edit-theater";
 		}
 		else {						
 			theaterService.update(theater);
 			redirectAttributes.addAttribute("message", "Se actualizó la Sala con exito");
-			redirect += "theaters";
+			redirect += "admin/theaters";
 		}							
 			
 		return redirect;
 	}
 	
-	@RequestMapping(value="/delete-theater")
+	@RequestMapping(value="/admin/delete-theater")
 	public ModelAndView deleteTheater(@RequestParam String id, Model model) {
 		ModelAndView mav = new ModelAndView();
 		
@@ -128,7 +128,7 @@ public class TheaterController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/delete-theater-element")
+	@RequestMapping(value="/admin/delete-theater-element")
 	public String deleteTheater(@RequestParam String id, RedirectAttributes redirectAttributes) {												
 		try {
 			theaterService.delete(Integer.valueOf(id));
@@ -139,7 +139,7 @@ public class TheaterController {
 			e.printStackTrace();
 		}	             
 
-		return "redirect:/theaters";
+		return "redirect:/admin/theaters";
 	}
 	
 	
@@ -149,8 +149,6 @@ public class TheaterController {
 	     binder.registerCustomEditor(Date.class,     
 	    		 new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true, 10));   
 	}
-	
-	
-	
+		
 	
 }
