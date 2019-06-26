@@ -12,81 +12,73 @@
 <body>
 	<%@include file="header.jsp" %>
 	<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2">Funciones</h1>
-          </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 order-md-2 mb-4">
-        
-        </div>
-        <div class="col-md-8 order-md-1">
-        	 <h4 class="mb-3">Formulario</h4>
-          <form  >
-          <input type="hidden"  >
-  
-           <div class="mb-3">
-               <label for="state">Película</label>
-                <select class="custom-select d-block w-100" id="state">
-                  <option value ="PG-13">PG-13</option>
-                  <option value="PG">PG</option>
-                  <option value="R">R</option>
-                  <option value = "NC-17">NC-17</option>
-                <select>
-            </div>
-                        
-             <div class="mb-3">
-               <label for="state">Sala</label>
-                <select class="custom-select d-block w-100" id="state">
-                  <option value ="PG-13">PG-13</option>
-                  <option value="PG">PG</option>
-                  <option value="R">R</option>
-                  <option value = "NC-17">NC-17</option>
-                <select>
-            </div>
-            
-            <div class="row">
-                  <div class="col-md-6 mb-3">
-                <label for="state">Fecha</label>
-                <input type="text" class="form-control" id="poster" >
-              </div>
-             <div class="col-md-6 mb-3">
-                <label for="state">Hora</label>
-               	  <input type="text" class="form-control" id="poster" >
-              </div>
-            </div>
-            
-             <div class="mb-3">
-               <label for="state">Tipo de Función</label>
-                <select class="custom-select d-block w-100" id="state">
-                  <option value ="PG-13">PG-13</option>
-                  <option value="PG">PG</option>
-                  <option value="R">R</option>
-                  <option value = "NC-17">NC-17</option>
-                <select>
-            </div>
-            
-              <div class="col-md-3 mb-3">
-                <label for="duracion">Precio</label>
-                <input type="text" class="form-control" id="duracion" placeholder="en minutos">
-              </div>
-           <hr class="mb-4">
-                         <div class="d-block my-3">
-              <label>Estatus</label>
-                    <div class="d-block my-2">
-                   		
-                         <radiobutton  name="status"  value="true"  checked="checked"> 
-                          <label>Activo</label>                         
-                         <radiobutton name="status" value="false">
-                          <label>Inactivo</label>   
-                    </div>
-            </div>
-     
-            <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block btn-danger" type="submit">Guardar</button>
-          </form>
-      </div>
-        </div>
+    	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        	<h1 class="h2">Funciones</h1>
+    	</div>
+	    <div class="container">
+	      <div class="row">
+	        <div class="col-md-4 order-md-2 mb-4">
+	        
+	        </div>
+	        <div class="col-md-8 order-md-1">
+	        	<h4 class="mb-3">Formulario</h4>
+	          	<form >
+		          <input type="hidden">
+		  
+		           <div class="mb-3">
+		               <label for="state">Película</label>
+		                <select class="custom-select d-block w-100" id="state">
+		                  <options value ="PG-13">PG-13/>
+		                <select>
+		            </div>
+		                        
+		            <div class="mb-3">
+		               <label for="state">Sala</label>
+		                <select class="custom-select d-block w-100" id="state">
+		                  <options value ="PG-13">PG-13</>
+		                <select>
+		            </div>
+		            
+		            <div class="row">
+			        	<div class="col-md-6 mb-3">
+			            	<label for="fecha">Fecha</label>
+			                <input type="text" class="form-control" id="fecha" >
+			        	</div>
+			            <div class="col-md-6 mb-3">
+			                <label for="hora">Hora</label>
+			               	<input type="text" class="form-control" id="hora" >
+			            </div>
+		            </div>
+		            
+		             <div class="mb-3">
+		               <label for="state">Tipo de Función</label>
+		                <select class="custom-select d-block w-100" id="state">
+		                  <options value ="PG-13">PG-13/>
+		                <select>
+		            </div>
+		            
+		           	<div class="col-md-3 mb-3">
+		                <label for="precio">Precio</label>
+		                <input type="text" class="form-control" id="precio">
+		            </div>
+		            
+		           	<hr class="mb-4">
+		           	
+		            <div class="d-block my-3">
+		              <label>Estatus</label>
+		              <div class="d-block my-2">
+			              <input type = "radio"  name="status"  value="true"  checked="checked"> 
+			              <label>Activo</label>                         
+			              <input type = "radio" name="status" value="false">
+			              <label>Inactivo</label>  
+		              </div>
+		            </div>
+		     
+		            <hr class="mb-4">
+		            <button class="btn btn-primary btn-lg btn-block btn-danger" type="submit">Guardar</button>
+	          </form>
+	      	</div>
+	      </div>
          
 
       <footer class="my-5 pt-5 text-muted text-center text-small">
