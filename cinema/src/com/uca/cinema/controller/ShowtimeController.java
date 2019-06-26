@@ -27,6 +27,13 @@ public class ShowtimeController {
 		return (CUser) session.getAttribute(MainController.USER_SESSION);
 	}
 	
+	@RequestMapping("/showtimes")
+	public ModelAndView storeList() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("admin/showtimes");
+		return mav;
+	}
+	
 	@RequestMapping("/addShowtime")
 	public ModelAndView showtimeForm() {
 		ModelAndView mav = new ModelAndView();
