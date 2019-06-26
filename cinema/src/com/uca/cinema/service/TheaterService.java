@@ -25,9 +25,9 @@ public class TheaterService implements TheaterInterface{
 	}
 
 	@Override
-	public Theater getOne(Integer id) {
-		// TODO Auto-generated method stub
-		return theaterRepository.getOne(id);
+	public Theater findOne(Integer id) {
+		// TODO Auto-generated method stub		
+		return theaterRepository.findById(id).get();
 	}
 
 	@Override
@@ -35,11 +35,12 @@ public class TheaterService implements TheaterInterface{
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			Date date = new Date();
+			
 			String modifiedDate= new SimpleDateFormat("yyyy-MM-dd").format(date);
 			theater.setCreatedDate(df.parse(modifiedDate ));
 			theater.setCreatedBy(1);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+ 
 			e.printStackTrace();
 		}
 		theaterRepository.save(theater);
@@ -54,9 +55,10 @@ public class TheaterService implements TheaterInterface{
 	}
 
 	@Override
-	public void deleteById(Integer id) {
+	public void delete(Integer id) {
 		// TODO Auto-generated method stub
-		theaterRepository.delete(id);
+		Theater theater = theaterRepository.findById(id).get();
+		theaterRepository.delete(theater);
 		
 	}
 	

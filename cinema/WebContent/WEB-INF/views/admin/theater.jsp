@@ -25,20 +25,22 @@
             </ul>
         </div>
         <div class="col col-md-9" style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
-            <form:form action="${pageContext.request.contextPath}/create-theater-register" method="POST" modelAttribute="theater" style="padding: 8px;width: 70%;">
+            <form:form action="${pageContext.request.contextPath}/${actionForm}" method="POST" modelAttribute="theater" style="padding: 8px;width: 70%;">
                 <div style="display: flex;flex-direction: row;/*height: 10%;*/margin-bottom: 8px;justify-content: center;align-items: center;">
             	
 	                <h3 style="flex: 10;">Registrar Sala</h3>
 	                <button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/theaters'" type="button" style="flex: 2;height: 37px;">
 	                	<i class="fa fa-plus"></i>
-	                	Regresar
-	                	
+	                	Regresar	                	
 	                </button>                
             	</div>        
             	
             	
                 <div class="form-group"><label for="name">Nombre</label>
                 	<form:input class="form-control" type="text" id="name"  path="name"/>
+                	<form:hidden path="createdDate"/>
+                	<form:hidden path="createdBy"/>
+                	<form:hidden path="idTheater"/>
                 	<form:errors path="name" cssStyle="color: #E81505"/>
                 </div>
                 <div class="form-group"><label for="capacity">Descripción</label>

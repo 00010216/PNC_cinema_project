@@ -10,6 +10,7 @@
     <title>plantillaLista</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-material-design.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/styles.css">
+    
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
@@ -34,7 +35,12 @@
                 </button>                
             </div>
             <c:if test = "${message != null }">
-         		<div class="alert alert-success" role="alert">${message}</div>
+            	<div class="alert alert-success alert-dismissible fade show" role="alert" style="width: 90%;">
+				  ${message}
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>                     		
       		</c:if>           
             <div style="width: 90%;/*height: 100px;*/">
                 <div class="table-responsive" style="height: 450px;overflow-y: scroll;padding-right: 20px;">
@@ -57,8 +63,15 @@
 									<td><c:out value = "${theater.getDescription()}"/></td>
 									<td><c:out value = "${theater.getCapacity()}"/></td>
 									<td><c:out value = "${theater.getDelegateStatus()}"/></td>			
-									<td style="display: flex;justify-content: center;align-items: center;"><button class="btn" type="button" style="/*flex: 1;*/margin-right: 8px;/*width: 1px;*/"><i class="fa fa-edit" style="/*margin-right: 8px;*/"></i></button><button class="btn btn-primary" type="button"
-                                        style="/*flex: 1;*/"><i class="fa fa-trash"></i></button></td>
+									<td style="display: flex;justify-content: center;align-items: center;">
+										<button class="btn" type="button" onclick="location.href='${pageContext.request.contextPath}/edit-theater?id=${theater.getIdTheater()}'" style="/*flex: 1;*/margin-right: 8px;">
+											<i class="fa fa-edit" style="/*margin-right: 8px;*/"></i>										
+										</button>
+										<button class="btn btn-primary deleteButton" type="button" data-id="${theater.getIdTheater()}" data-toggle="modal" data-target="#deleteModal" data-url="${pageContext.request.contextPath}/delete-theater-element?id=${theater.getIdTheater()}" 
+                                        	style="/*flex: 1;*/">
+                                        	<i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
 								</tr>
 							</c:forEach>
                                                         
@@ -68,8 +81,30 @@
             </div>
         </div>
     </div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar sala</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button id="deleteModalButton" type="button" class="btn btn-danger">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/theatersJs.js"></script>
 </body>
 
 </html>
