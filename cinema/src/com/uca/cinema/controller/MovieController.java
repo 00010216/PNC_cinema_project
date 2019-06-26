@@ -24,6 +24,7 @@ import com.uca.cinema.service.MovieService;
 
 @Controller
 @SessionAttributes(MainController.USER_SESSION)
+@RequestMapping("/admin")
 public class MovieController {
 	
 	@Autowired
@@ -40,7 +41,7 @@ public class MovieController {
 		return (CUser) session.getAttribute(MainController.USER_SESSION);
 	}
 	
-	@RequestMapping("/admin/movies")
+	@RequestMapping("/movies")
 	public ModelAndView storeList(ModelMap map, @ModelAttribute("auth") boolean auth) {
 		if(!auth) {
 			map.clear();
@@ -53,23 +54,23 @@ public class MovieController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(movies != null)
+		if(movies.isEmpty())
 			mav.addObject("movies", movies);
 		else
 			mav.addObject("nolist", "No se encontraron películas");
-		mav.setViewName("movies");
+		mav.setViewName("admin/movies");
 		return mav;
 	}
 	
-	@RequestMapping("/admin/addMovie")
+	@RequestMapping("/addMovie")
 	public ModelAndView storeForm() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("movie",  new Movie());
-		mav.setViewName("moviesform");
+		mav.setViewName("admin/moviesform");
 		return mav;
 	}
 	
-	@PostMapping("/save")
+	@PostMapping("/movie/save")
 	ModelAndView save(@Valid @ModelAttribute Movie movie, BindingResult br,
 			RedirectAttributes ra, HttpServletRequest req, @ModelAttribute(MainController.USER_SESSION) CUser user) {
 		ModelAndView mav = new ModelAndView();
@@ -80,12 +81,12 @@ public class MovieController {
 		if (br.hasErrors()) {
 			mav.setViewName("moviesform");
 		} else {
-			RedirectView rv = new RedirectView(req.getContextPath() + "/stores");
+			RedirectView rv = new RedirectView(req.getContextPath() + "/admin/movies");
 			rv.setExposeModelAttributes(false);
 			try {
 				movieService.save(movie);
-				ra.addFlashAttribute("success", true);
-				ra.addFlashAttribute("message", "Información de sucursal guardada con éxito");
+				ra.addFlashAttribute("success", true);	
+				ra.addFlashAttribute("message", "La película se guardó con éxito");
 			} catch(Exception e) {
 				e.printStackTrace();
 				ra.addFlashAttribute("success", false);
