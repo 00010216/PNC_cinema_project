@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-material-design.min.css">
 <link href="${pageContext.request.contextPath}/resources/css/dashboard.css" rel="stylesheet">
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 </head>
 <body>
 	<%@include file="header.jsp" %>
@@ -21,7 +21,7 @@
         
         </div>
         <div class="col-md-8 order-md-1">
-        	 <h4 class="mb-3">Billing address</h4>
+        	 <h4 class="mb-3">Formulario</h4>
           <form:form  action = "${pageContext.request.contextPath}/admin/movie/save" method = "POST" modelAttribute = "movie">
           <form:input type="hidden" path="idMovie" />
             <div class="mb-3">
@@ -47,19 +47,16 @@
             <div class="row">
                   <div class="col-md-4 mb-3">
                 <label for="state">Clasificación</label>
-                <form:select class="custom-select d-block w-100" id="state" required path = "rating">
-                  <option value ="terror">Terror</option>
-                  <option value="comedia">Comedia</option>
-                  <option value="animada">Animada</option>
-                  <option value="romance">Romance</option>
-                  <option value = "accion">Acción</option>
-                  <option value = "fantasia">Fantasía</option>
-                  <option value = "cienciaf">Ciencia Ficción</option>
+                <form:select class="custom-select d-block w-100" id="state" path = "rating">
+                  <option value ="PG-13">PG-13</option>
+                  <option value="PG">PG</option>
+                  <option value="R">R</option>
+                  <option value = "NC-17">NC-17</option>
                 </form:select>
               </div>
              <div class="col-md-4 mb-3">
                 <label for="state">Género</label>
-                <form:select class="custom-select d-block w-100" id="state" required path = "genres">
+                <form:select class="custom-select d-block w-100" id="state" path = "genres">
                   <option value ="terror">Terror</option>
                   <option value="comedia">Comedia</option>
                   <option value="animada">Animada</option>
@@ -70,43 +67,43 @@
                 </form:select>
               </div>
               <div class="col-md-3 mb-3">
-                <label for="zip">Duración</label>
-                <input type="text" class="form-control" id="zip" placeholder="en minutos" required>
+                <label for="duracion">Duración</label>
+                <form:input type="text" class="form-control" id="duracion" placeholder="en minutos" path = "runtime"/>
               </div>
             </div>
             <hr class="mb-4">
              <div class="mb-3">
               <label for="director">Director</label>
-              <input type="text" class="form-control" id="director">
+              <form:input type="text" class="form-control" id="director" path = "director"/>
             </div>
             
             <hr class="mb-4">
                          <div class="d-block my-3">
-              <label>Status</label>
+              <label>Estatus</label>
                     <div class="d-block my-2">
                    		
                          <form:radiobutton  name="status" path="status" value="true"/> 
-                          <label>Active</label>                         
+                          <label>Activo</label>                         
                          <form:radiobutton name="status" path="status" value="false"/>
-                          <label>Inactive</label>   
+                          <label>Inactivo</label>   
                     </div>
             </div>
             <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
+            <button class="btn btn-primary btn-lg btn-block btn-danger" type="submit">Guardar</button>
           </form:form>
       </div>
         </div>
          
 
       <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">&copy; 2017-2018 CinemaXYZ</p>
+        <p class="mb-1">&copy; 2019 CinemaXYZ</p>
         <ul class="list-inline">
-          <li class="list-inline-item"><a href="#">Privacy</a></li>
-          <li class="list-inline-item"><a href="#">Terms</a></li>
-          <li class="list-inline-item"><a href="#">Support</a></li>
+          <li class="list-inline-item"><a style = "color: #CC3333;" href="#">Privacy</a></li>
+          <li class="list-inline-item"><a style = "color: #CC3333;" href="#">Terms</a></li>
+          <li class="list-inline-item"><a style = "color: #CC3333;" href="#">Support</a></li>
         </ul>
       </footer>
     </div>
-  
+  <%@include file="footer.jsp" %>
 </body>
 </html>
