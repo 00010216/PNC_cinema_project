@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 public class Showtime  {
 	@Id
-	@SequenceGenerator(name="SHOWTIME_IDSHOWTIME_GENERATOR", sequenceName="SHOWTIME_ID_SHOWTIME_SEQ")
+	@SequenceGenerator(name="SHOWTIME_IDSHOWTIME_GENERATOR", sequenceName="SHOWTIME_ID_SHOWTIME_SEQ", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SHOWTIME_IDSHOWTIME_GENERATOR")
 	@Column(name="id_showtime")
 	private Integer idShowtime;
