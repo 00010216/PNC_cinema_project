@@ -5,6 +5,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class Theater  {
 	private Integer createdBy;
 
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="created_date")
 	private Date createdDate;
 
@@ -148,6 +151,10 @@ public class Theater  {
 		showtime.setTheater(null);
 
 		return showtime;
+	}
+	
+	public String getDelegateStatus() {				
+		return this.status ? "Disponible" : "No disponible";
 	}
 
 }
