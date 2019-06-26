@@ -1,8 +1,14 @@
 package com.uca.cinema.controller;
 
+<<<<<<< HEAD
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+=======
+import java.util.Arrays;
+import java.util.List;
+
+>>>>>>> refs/heads/kc_adminviews
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +25,7 @@ import com.uca.cinema.service.LoginService;
 @SessionAttributes(MainController.USER_SESSION)
 public class MainController {
 	
+<<<<<<< HEAD
 	public final static String USER_SESSION = "userlog";
 	
 	@Autowired
@@ -87,5 +94,14 @@ public class MainController {
 		}
 		return "redirect:/";
 		
+=======
+	@RequestMapping("/")
+	public ModelAndView initMain() {
+		ModelAndView mav = new ModelAndView();
+		List<String> images = Arrays.asList("resources/img/toystory.jpg", "resources/img/reyleon.jpg", "resources/img/it.jpg","resources/img/mib.jpg","resources/img/toystory.jpg","resources/img/toystory.jpg","resources/img/toystory.jpg");
+		mav.setViewName("admin/moviesform");
+		mav.addObject("image",images);
+		return mav;
+>>>>>>> refs/heads/kc_adminviews
 	}
 }
