@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uca.cinema.domain.CUser;
@@ -27,17 +27,23 @@ public class MainController {
 	@RequestMapping(value="/")
 	public String index(HttpSession session) {
 		CUser user = (CUser)session.getAttribute(USER_SESSION);
-		if (session.getAttribute(USER_SESSION) != null && user.getLoggedin()) {
-			return "redirect:/movies";
+		if (user != null && user.getLoggedin()) {
+			if(user.getIsadmin())
+				return "redirect:/admin/movies";
+			else return "redirect:/user/home";
 		}
 		return "redirect:/login";
 	}
 	
 	@RequestMapping(value="/login")
-	public ModelAndView login() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("login");
-		return mav;
+	public String login(HttpSession session) {
+		CUser user = (CUser)session.getAttribute(USER_SESSION);
+		if (user != null && user.getLoggedin()) {
+			if(user.getIsadmin())
+				return "redirect:/admin/movies";
+			else return "redirect:/user/home";
+		}
+		return "login";
 	}
 	
 	@RequestMapping(value="/perform_login", method=RequestMethod.POST)
@@ -52,13 +58,14 @@ public class MainController {
 					ra.addFlashAttribute("error", "El usuario especificado ya está conectado. Por favor cierre otras cuentas para continuar.");
 				}else {
 					loginService.sessionUser(true, user.getIdUser());
+					user.setLoggedin(true);
 					session.setAttribute(USER_SESSION, user);
 					if(user.getIsadmin())
-						return "redirect:/admin/home";
+						return "redirect:/admin/movies";
 					else return "redirect:/user/home";
 				}
 			} else {
-				ra.addFlashAttribute("Credenciales incorrectas");
+				ra.addFlashAttribute("error", "Credenciales incorrectas");
 			}
 		}
 		catch(Exception e) {
@@ -68,12 +75,13 @@ public class MainController {
 		return "redirect:/login";
 	}
 	
-	@GetMapping("/logout")
-	String logout(HttpSession session) {
+	@RequestMapping("/logout")
+	String logout(HttpSession session, SessionStatus status) {
 		try {
-			CUser u = (CUser) session.getAttribute(MainController.USER_SESSION);
+			CUser u = (CUser) session.getAttribute(USER_SESSION);
 			loginService.sessionUser(false, u.getIdUser());
-			session.setAttribute(USER_SESSION, null);
+			session.removeAttribute(USER_SESSION);
+			status.setComplete();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
