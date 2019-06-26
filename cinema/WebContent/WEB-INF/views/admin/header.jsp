@@ -30,7 +30,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/admin/addShowtime">
+                <a class="nav-link" href="${pageContext.request.contextPath}/admin/showtimes">
                   <span data-feather="calendar"></span>
                   Funciones
                 </a>
