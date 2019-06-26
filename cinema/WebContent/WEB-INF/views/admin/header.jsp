@@ -24,13 +24,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="${pageContext.request.contextPath}/admin/theaters">
                   <span data-feather="monitor"></span>
                   Salas
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="${pageContext.request.contextPath}/admin/showtimes">
                   <span data-feather="calendar"></span>
                   Funciones
                 </a>
