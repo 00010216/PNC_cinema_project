@@ -134,4 +134,16 @@ public class MovieController {
 		}
 		return rv;
 	}
+	
+	@RequestMapping("/movie/detail/{idmovie}")
+	public String showDetail(@PathVariable Integer idmovie, Model m){
+		try {
+			Movie movie= movieService.findOne(idmovie);
+			m.addAttribute("movie", movie);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return "admin/moviedetail";
+	}
 }
