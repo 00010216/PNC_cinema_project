@@ -1,6 +1,11 @@
 package com.uca.cinema.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -14,36 +19,44 @@ import java.util.List;
 public class CUser  {
 
 	@Id
-	@SequenceGenerator(name="C_USER_IDUSER_GENERATOR", sequenceName="C_USER_ID_USER_SEQ")
+	@SequenceGenerator(name="C_USER_IDUSER_GENERATOR", sequenceName="C_USER_ID_USER_SEQ", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="C_USER_IDUSER_GENERATOR")
 	@Column(name="id_user")
 	private Integer idUser;
-
+	
+	@NotEmpty(message="Este campo no puede estar vacio")
 	private String address;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="approved_date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date approvedDate;
 
-	private double balance;
+	private BigDecimal balance;
 
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthday;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="created_date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createdDate;
-
+	
+	@NotEmpty(message="Este campo no puede estar vacio")
 	private String email;
 
 	@Column(name="first_name")
+	@NotEmpty(message="Este campo no puede estar vacio")
 	private String firstName;
 
 	private Boolean isadmin;
 
 	@Column(name="last_name")
+	@NotEmpty(message="Este campo no puede estar vacio")
 	private String lastName;
-
+	
+	@NotEmpty(message="Este campo no puede estar vacio")
 	private String passwd;
 
 	private Boolean status;
@@ -56,7 +69,8 @@ public class CUser  {
 	@Temporal(TemporalType.DATE)
 	@Column(name="updated_date")
 	private Date updatedDate;
-
+	
+	@NotEmpty(message="Este campo no puede estar vacio")
 	private String username;
 
 	//bi-directional many-to-one association to CUser
@@ -113,11 +127,11 @@ public class CUser  {
 		this.approvedDate = approvedDate;
 	}
 
-	public double getBalance() {
+	public BigDecimal getBalance() {
 		return this.balance;
 	}
 
-	public void setBalance(double balance) {
+	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
 
