@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +19,27 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.uca.cinema.domain.CUser;
 import com.uca.cinema.domain.Theater;
 import com.uca.cinema.service.TheaterInterface;
 
 @Controller
+@SessionAttributes(MainController.USER_SESSION)
 public class TheaterController {
 	
 	@Autowired
 	TheaterInterface theaterService;
+	
+	/*
+	@ModelAttribute("auth")
+	public boolean authUser(HttpSession session, @SessionAttribute(name = MainController.USER_SESSION, required = false) CUser loggeduser) {
+		return loggeduser != null ? loggeduser.getIsadmin() && loggeduser.getLoggedin() : false;
+	}*/
 	
 	@RequestMapping(value="/admin/create-theater", method=RequestMethod.GET)
 	public ModelAndView createTheater(Model model) {
@@ -105,7 +116,7 @@ public class TheaterController {
 		}
 		else {						
 			theaterService.update(theater);
-			redirectAttributes.addAttribute("message", "Se actualizó la Sala con exito");
+			redirectAttributes.addAttribute("message", "Se actualizï¿½ la Sala con exito");
 			redirect += "admin/theaters";
 		}							
 			
@@ -135,7 +146,7 @@ public class TheaterController {
 			redirectAttributes.addAttribute("message", "Se elimino el registro correctamente");
 		}
 		catch(Exception e) {
-			redirectAttributes.addAttribute("message", "Sucedió un error al eliminar");
+			redirectAttributes.addAttribute("message", "Sucediï¿½ un error al eliminar");
 			e.printStackTrace();
 		}	             
 

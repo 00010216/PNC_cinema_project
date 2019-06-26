@@ -10,7 +10,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -38,14 +38,8 @@ public class MovieController {
 	MovieService movieService;
 	
 	@ModelAttribute("auth")
-	public boolean authUser(HttpSession session) {
-		CUser u = (CUser) session.getAttribute(MainController.USER_SESSION);
-		return u.getIsadmin() && u.getLoggedin();
-	}
-	
-	@ModelAttribute(MainController.USER_SESSION)
-	public CUser sessionUser(HttpSession session) {
-		return (CUser) session.getAttribute(MainController.USER_SESSION);
+	public boolean authUser(HttpSession session, @SessionAttribute(name = MainController.USER_SESSION, required = false) CUser loggeduser) {
+		return loggeduser != null ? loggeduser.getIsadmin() && loggeduser.getLoggedin() : false;
 	}
 	
 	@RequestMapping("/movies")
@@ -79,10 +73,10 @@ public class MovieController {
 	
 	@PostMapping("/movie/save")
 	ModelAndView save(@Valid @ModelAttribute("movie") Movie movie, BindingResult br,
-			RedirectAttributes ra, HttpServletRequest req, HttpSession session) {
+			RedirectAttributes ra, HttpServletRequest req, @ModelAttribute("auth") boolean auth) {
 		ModelAndView mav = new ModelAndView();
 		logger.log(Level.SEVERE, "Iniciando el metodo save");
-		if (!authUser(session)) {
+		if (!auth) {
 			mav.clear();
 			return new ModelAndView("redirect:/");
 		}
@@ -109,7 +103,11 @@ public class MovieController {
 	}
 	
 	@RequestMapping("/movie/edit/{idmovie}")
-	public String editMovie(@PathVariable Integer idmovie, Model m){
+	public String editMovie(@PathVariable Integer idmovie, ModelMap m, @ModelAttribute("auth") boolean auth){
+		if(!auth) {
+			m.clear();
+			return "redirect:/";
+		}
 		try {
 			Movie movie= movieService.findOne(idmovie);
 			m.addAttribute("action", "Editar");
@@ -122,21 +120,31 @@ public class MovieController {
 	}
 	
 	@GetMapping("/movie/delete/{idMovie}")
-	public RedirectView deleteStore(@PathVariable Integer idMovie, HttpServletRequest req, RedirectAttributes ra) {
+	public RedirectView deleteStore(@PathVariable Integer idMovie, HttpServletRequest req,
+			RedirectAttributes ra, @ModelAttribute("auth") boolean auth) {
+		if(!auth) {
+			RedirectView rv = new RedirectView(req.getContextPath()+"/");
+			rv.setExposeModelAttributes(false);
+			return rv;
+		}
 		RedirectView rv = new RedirectView(req.getContextPath()+"/admin/movies");
 		rv.setExposeModelAttributes(false);
 		try {
 			movieService.delete(idMovie);
-			ra.addFlashAttribute("message", "La película fue removida con éxito");			
+			ra.addFlashAttribute("message", "La pelï¿½cula fue removida con ï¿½xito");			
 		} catch (Exception e) {
-			ra.addFlashAttribute("message", "No se pudo remover la película");
+			ra.addFlashAttribute("message", "No se pudo remover la pelï¿½cula");
 			e.printStackTrace();
 		}
 		return rv;
 	}
 	
 	@RequestMapping("/movie/detail/{idmovie}")
-	public String showDetail(@PathVariable Integer idmovie, Model m){
+	public String showDetail(@PathVariable Integer idmovie, ModelMap m, @ModelAttribute("auth") boolean auth){
+		if(!auth) {
+			m.clear();
+			return "redirect:/";
+		}
 		try {
 			Movie movie= movieService.findOne(idmovie);
 			m.addAttribute("movie", movie);
