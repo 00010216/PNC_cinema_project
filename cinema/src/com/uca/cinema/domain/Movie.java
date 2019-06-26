@@ -14,7 +14,7 @@ import java.util.List;
 public class Movie  {
 
 	@Id
-	@SequenceGenerator(name="MOVIE_IDMOVIE_GENERATOR", sequenceName="MOVIE_ID_MOVIE_SEQ")
+	@SequenceGenerator(name="MOVIE_IDMOVIE_GENERATOR", sequenceName="MOVIE_ID_MOVIE_SEQ", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MOVIE_IDMOVIE_GENERATOR")
 	@Column(name="id_movie")
 	private Integer idMovie;

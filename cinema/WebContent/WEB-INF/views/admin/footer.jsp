@@ -4,7 +4,7 @@
     <script src="../../../../dist/js/bootstrap-material-design.min.js"></script>
 
     <!-- Icons -->
-    <script src="resources/js/feather.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/feather.js"></script>
     <script>
       feather.replace()
     </script>

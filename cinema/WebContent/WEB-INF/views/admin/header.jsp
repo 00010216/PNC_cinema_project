@@ -3,7 +3,7 @@
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Cinema XYZ</a>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Sign out</a>
+          <a class="nav-link" href="${pageContext.request.contextPath}/logout">Cerrar Sesión</a>
         </li>
       </ul>
     </nav>
@@ -18,7 +18,7 @@
              <img class="mb-2 img-fluid" src="${pageContext.request.contextPath}/resources/img/logoxyz.png" alt="" width="80">
              </div></li>
               <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <a class="nav-link" href="${pageContext.request.contextPath}/admin/movies">
                   <span data-feather="film"></span>
                   Películas <span class="sr-only">(current)</span>
                 </a>

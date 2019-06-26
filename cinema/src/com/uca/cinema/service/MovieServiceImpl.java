@@ -1,5 +1,9 @@
 package com.uca.cinema.service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +34,16 @@ public class MovieServiceImpl implements MovieService{
 	@Override
 	@Transactional
 	public Movie save(Movie mv) throws DataAccessException {
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date date = new Date();
+			String modifiedDate = df.format(date);
+			if(mv.getCreatedDate() == null) mv.setCreatedDate(df.parse(modifiedDate));
+			mv.setUpdatedDate(df.parse(modifiedDate));
+			mv.setCreatedBy(1);
+		} catch(ParseException e) {
+			e.printStackTrace();
+		}
 		return movieRepository.save(mv);
 	}
 

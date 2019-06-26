@@ -17,31 +17,36 @@
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
             <h1 class="h2">Películas</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
-              <div class="btn-group mr-2">
-                <button class="btn btn-sm btn-outline-secondary">Share</button>
-                <button class="btn btn-sm btn-outline-secondary">Export</button>
-              </div>
-              <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar"></span>
-                This week
+              <button class="btn btn-large btn-outline-secondary" onclick = "window.location.href='${pageContext.request.contextPath}/admin/addMovie'">
+                <span data-feather="plus-circle"></span>
+                Agregar película
               </button>
             </div>
           </div>
-		
-		<c:forEach items="${image}" var="image">
+               <c:if test = "${not empty message}">
+            	<div class="alert alert-success alert-dismissible fade show" role="alert" style="width: 90%;">
+				  ${message}
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>                     		
+      		</c:if> 
+
+		${nolist}
+		<c:forEach items="${movies}" var="movie">
   			<div class = "d-flex justify-content-center">
   			 <div class="card flex-md-row mb-4 box-shadow h-md-250" style = "width: 800px;">
-  			  <img class="img-fluid card-img-right flex-auto d-none d-md-block" style="height: 18rem;width: 15rem;" src="${image}" alt="Card image cap">
+  			  <img class="img-fluid card-img-right flex-auto d-none d-md-block" style="height: 18rem;width: 15rem;" src="${movie.posterLink}" alt="Card image cap">
             <div class="card-body d-flex flex-column align-items-start">
               <h3 class="mb-0">
-                <p class="text-dark">${image.title}</p>
+                <p class="text-dark">${movie.title}</p>
               </h3>
-              <p class="h6 mb-auto">${image.synopsis}</p>
+              <p class="h6 mb-auto">${movie.synopsis}</p>
               <div class="btn-group d-flex justify-content-end " style="height: 40px;padding-top: 8px;">
 		                 <button type="button" class="btn btn-danger bmd-btn-fab bmd-btn-fab-sm">
 		 					<span data-feather="eye"></span>
 						</button>
-		                <button type = "button" class="btn btn-danger bmd-btn-fab bmd-btn-fab-sm">
+		                <button type = "button" class="btn btn-danger bmd-btn-fab bmd-btn-fab-sm" onclick = "window.location.href='${pageContext.request.contextPath}/admin/movie/edit/${movie.idMovie}'">
 		                	<span data-feather="edit">
 		                </button>
 		                <button type="button" class="btn btn-danger bmd-btn-fab bmd-btn-fab-sm">

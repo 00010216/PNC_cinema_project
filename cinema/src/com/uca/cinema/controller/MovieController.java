@@ -1,6 +1,8 @@
 package com.uca.cinema.controller;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -8,9 +10,11 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -26,6 +30,8 @@ import com.uca.cinema.service.MovieService;
 @SessionAttributes(MainController.USER_SESSION)
 @RequestMapping("/admin")
 public class MovieController {
+	
+	Logger logger = Logger.getLogger("Movies");
 	
 	@Autowired
 	MovieService movieService;
@@ -54,7 +60,7 @@ public class MovieController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(movies.isEmpty())
+		if(!movies.isEmpty())
 			mav.addObject("movies", movies);
 		else
 			mav.addObject("nolist", "No se encontraron películas");
@@ -71,30 +77,46 @@ public class MovieController {
 	}
 	
 	@PostMapping("/movie/save")
-	ModelAndView save(@Valid @ModelAttribute Movie movie, BindingResult br,
-			RedirectAttributes ra, HttpServletRequest req, @ModelAttribute(MainController.USER_SESSION) CUser user) {
+	ModelAndView save(@Valid @ModelAttribute("movie") Movie movie, BindingResult br,
+			RedirectAttributes ra, HttpServletRequest req, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		if (user.getLoggedin()) {
+		logger.log(Level.SEVERE, "Iniciando el metodo save");
+		if (!authUser(session)) {
 			mav.clear();
 			return new ModelAndView("redirect:/");
 		}
 		if (br.hasErrors()) {
 			mav.setViewName("moviesform");
+			logger.log(Level.SEVERE, "el form tiene errores");
 		} else {
+			logger.log(Level.SEVERE, "Envio correcto, redirigir a admin/movies");
 			RedirectView rv = new RedirectView(req.getContextPath() + "/admin/movies");
 			rv.setExposeModelAttributes(false);
 			try {
 				movieService.save(movie);
+				logger.log(Level.SEVERE, "Se ingreso a la base de datos");
 				ra.addFlashAttribute("success", true);	
-				ra.addFlashAttribute("message", "La película se guardó con éxito");
+				ra.addFlashAttribute("message", "La pelicula se guardo con exitosamente");
 			} catch(Exception e) {
 				e.printStackTrace();
 				ra.addFlashAttribute("success", false);
-				ra.addFlashAttribute("message", "No se ha podido guardar la película, intenténtelo más tarde");
+				ra.addFlashAttribute("message", "No se ha podido guardar la pelicula, intententelo mas tarde");
 			}
 			mav.setView(rv);
 		}
 		return mav;
 	}
 	
+	@RequestMapping("/movie/edit/{idmovie}")
+	public String editMovie(@PathVariable Integer idmovie, Model m){
+		try {
+			Movie movie= movieService.findOne(idmovie);
+			m.addAttribute("action", "Editar");
+			m.addAttribute("movie", movie);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return "admin/moviesform";
+	}
 }
