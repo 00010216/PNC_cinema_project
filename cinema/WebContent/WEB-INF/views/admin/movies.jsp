@@ -49,7 +49,7 @@
 		                <button type = "button" class="btn btn-danger bmd-btn-fab bmd-btn-fab-sm" onclick = "window.location.href='${pageContext.request.contextPath}/admin/movie/edit/${movie.idMovie}'">
 		                	<span data-feather="edit">
 		                </button>
-		                <button type="button" class="btn btn-danger bmd-btn-fab bmd-btn-fab-sm">
+		                <button type="button" class="btn btn-danger bmd-btn-fab bmd-btn-fab-sm" onclick = "window.location.href='${pageContext.request.contextPath}/admin/movie/delete/${movie.idMovie}'">
 		 					<span data-feather="trash-2"></span>
 						</button>
               		</div>

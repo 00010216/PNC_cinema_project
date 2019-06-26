@@ -82,7 +82,7 @@
               <label>Estatus</label>
                     <div class="d-block my-2">
                    		
-                         <form:radiobutton  name="status" path="status" value="true"/> 
+                         <form:radiobutton  name="status" path="status" value="true"  checked="checked"/> 
                           <label>Activo</label>                         
                          <form:radiobutton name="status" path="status" value="false"/>
                           <label>Inactivo</label>   

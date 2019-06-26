@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -118,5 +119,19 @@ public class MovieController {
 			e.printStackTrace();
 		}
 		return "admin/moviesform";
+	}
+	
+	@GetMapping("/movie/delete/{idMovie}")
+	public RedirectView deleteStore(@PathVariable Integer idMovie, HttpServletRequest req, RedirectAttributes ra) {
+		RedirectView rv = new RedirectView(req.getContextPath()+"/admin/movies");
+		rv.setExposeModelAttributes(false);
+		try {
+			movieService.delete(idMovie);
+			ra.addFlashAttribute("message", "La película fue removida con éxito");			
+		} catch (Exception e) {
+			ra.addFlashAttribute("message", "No se pudo remover la película");
+			e.printStackTrace();
+		}
+		return rv;
 	}
 }
