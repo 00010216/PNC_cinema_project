@@ -48,13 +48,6 @@
                   Logs
                 </a>
               </li>
-               <hr class="mb-4">
-             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/admin/userSession">
-                  <span data-feather="user"></span>
-                  User Session
-                </a>
-              </li>
             </ul>
           </div>
         </nav>
