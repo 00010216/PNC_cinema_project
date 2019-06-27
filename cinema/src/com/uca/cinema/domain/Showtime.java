@@ -30,6 +30,7 @@ public class Showtime  {
 
 	private double price;
 
+	@Temporal(TemporalType.TIME)
 	private Date schedule;
 
 	private Boolean status;

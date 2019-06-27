@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -24,6 +25,8 @@ import com.uca.cinema.repositories.TheaterRepository;
 
 @Service
 public class ShowtimeServiceImpl implements ShowtimeService{
+	
+	Logger log = Logger.getLogger("Showtimeservice");
 
 	@Autowired
 	ShowtimeRepository str;
@@ -49,32 +52,34 @@ public class ShowtimeServiceImpl implements ShowtimeService{
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public Showtime save(ShowtimeDTO sh) throws DataAccessException {
+	public Showtime save(ShowtimeDTO sh) throws DataAccessException, ParseException {
 		
 		Theater theater = thr.findById(sh.getIdTheater()).get();
 		Movie movie = mr.findById(sh.getIdmovie()).get();
 		ShowtimeFormat stformat = stfr.findById(sh.getIdShowtimeFormat()).get();
 		
 		Showtime showtime = new Showtime();
-		showtime.setIdShowtime(sh.getIdShowtime() != null ? sh.getIdShowtime() : null);
+		showtime.setIdShowtime(sh.getIdShowtime());
 		showtime.setMovie(movie);
 		showtime.setTheater(theater);
 		showtime.setShowtimeFormat(stformat);
 		showtime.setAvaliableSeats(theater.getCapacity());
 		showtime.setPrice(sh.getPrice());
-		showtime.setSchedule(sh.getSchedule());
-		showtime.setShowdate(sh.getShowdate());
+		showtime.setSchedule(parseDate(sh.getSchedule(), "HH:mm"));
+		showtime.setShowdate(parseDate(sh.getShowdate(), "yyyy-MM-dd"));
 		showtime.setStatus(sh.getStatus());
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			Date date = new Date();
 			String modifiedDate = df.format(date);
 			if(sh.getCreatedDate() == null) {
-				sh.setCreatedDate(df.parse(modifiedDate));
-				sh.setCreatedBy(1);
+				showtime.setCreatedDate(df.parse(modifiedDate));
+				showtime.setCreatedBy(1);
 			}
-			sh.setUpdatedDate(df.parse(modifiedDate));
-			sh.setUpdatedBy(1);
+			showtime.setUpdatedDate(df.parse(modifiedDate));
+			showtime.setUpdatedBy(1);
+			
+			str.save(showtime);
 		} catch(ParseException e) {
 			e.printStackTrace();
 		}
@@ -84,11 +89,33 @@ public class ShowtimeServiceImpl implements ShowtimeService{
 
 	@Override
 	public boolean isAvailable(ShowtimeDTO sh) throws DataAccessException {
-		Movie m = mr.getOne(sh.getIdmovie());
-		String duration = String.valueOf(m.getRuntime()+20).concat("m");
-		Showtime available = str.isAvailable(sh.getShowdate(), sh.getSchedule(),
-				sh.getSchedule(), duration, sh.getIdTheater());
+		Movie m = mr.findById(sh.getIdmovie()).get();
+		int duration = m.getRuntime()+20;
+		Date showdate=null, schedule = null;
+		
+		log.info("hora recibida:"+sh.getSchedule());
+		
+		try {
+			showdate = parseDate(sh.getShowdate(), "yyyy-MM-dd");
+			schedule = new SimpleDateFormat("HH:mm").parse(sh.getSchedule());
+			log.info("hora parseada:"+schedule);
+		}catch(ParseException e) {
+			e.printStackTrace();
+		}
+		
+		log.info("idtheater:"+sh.getIdTheater());
+		Showtime available = str.isAvailable(showdate, schedule,
+				schedule, String.valueOf(duration), sh.getIdTheater());
+		if(available!=null)
+			log.info("is available - Funcion obtenida"+available.getIdShowtime());
+		else log.info("el horario esta disponible");
 		return available != null;
 	}
 
+	private Date parseDate(String date, String format) throws ParseException
+	{
+	    SimpleDateFormat formatter = new SimpleDateFormat(format);
+	    return formatter.parse(date);
+	}
+	
 }

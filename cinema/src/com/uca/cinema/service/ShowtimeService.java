@@ -1,5 +1,6 @@
 package com.uca.cinema.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -13,7 +14,7 @@ public interface ShowtimeService {
 	
 	public Showtime findOne(Integer id) throws DataAccessException;
 	
-	public Showtime save(ShowtimeDTO sh) throws DataAccessException;
+	public Showtime save(ShowtimeDTO sh) throws DataAccessException, ParseException;
 	
 	public boolean isAvailable(ShowtimeDTO sh) throws DataAccessException;
 }

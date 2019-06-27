@@ -10,7 +10,7 @@ public class ShowtimeDTO {
 
 	private double price;
 
-	private Date schedule;
+	private String schedule;
 
 	private Boolean status;
 
@@ -20,7 +20,7 @@ public class ShowtimeDTO {
 
 	private Integer idTheater;
 	
-	private Date showdate;
+	private String showdate;
 	
 	private Integer createdBy;
 	
@@ -62,11 +62,11 @@ public class ShowtimeDTO {
 		this.price = price;
 	}
 
-	public Date getSchedule() {
+	public String getSchedule() {
 		return schedule;
 	}
 
-	public void setSchedule(Date schedule) {
+	public void setSchedule(String schedule) {
 		this.schedule = schedule;
 	}
 
@@ -110,11 +110,11 @@ public class ShowtimeDTO {
 		this.idTheater = idTheater;
 	}
 
-	public Date getShowdate() {
+	public String getShowdate() {
 		return showdate;
 	}
 
-	public void setShowdate(Date showdate) {
+	public void setShowdate(String showdate) {
 		this.showdate = showdate;
 	}
 	
