@@ -62,10 +62,18 @@
 									<td><c:out value = "${theater.getDelegateStatus()}"/></td>			
 									<td style="display: flex;justify-content: center;align-items: center; padding: .2rem;" >
 										
-										<button class="btn btn-danger btn-raised " type="button" onclick="location.href='${pageContext.request.contextPath}/admin/edit-theater?id=${theater.getIdTheater()}'" >
-											<span data-feather="edit">									
-										</button>
-				
+										<div class="btn-group d-flex justify-content-end mr-3 " >
+							                <button class="btn btn-outline-danger " type="button" onclick="location.href='${pageContext.request.contextPath}/admin/edit-theater?id=${theater.getIdTheater()}'" >
+												<span data-feather="edit">								
+											</button>
+											<!-- Agregar funcionalidad de activar y desactivar -->
+							                <button class="btn btn-outline-danger " type="button" onclick="" >
+												<span data-feather="lock"></span>						
+											</button>
+											<button class="btn btn-outline-danger  " type="button" onclick="" >
+												<span data-feather="unlock"></span>						
+											</button>
+              							</div>
                                     </td>
 								</tr>
 							</c:forEach>
