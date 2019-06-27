@@ -55,12 +55,12 @@
                         	<c:forEach items="${showtimes}" var="st"> 
 								<tr>
 									<td>${st.idShowtime}</td>
-									<td>${st.movie}</td>
-									<td>${st.showdate}</td>
-									<td>${st.schedule}</td>
-									<td>${st.theater}</td>
-									<td>${st.format}</td>
-									<td>${st.seats}</td>
+									<td>${st.movie.title}</td>
+									<td>${st.delegateShowdate}</td>
+									<td>${st.delegateSchedule}</td>
+									<td>${st.theater.name}</td>
+									<td>${st.showtimeFormat.name}</td>
+									<td>${st.avaliableSeats}</td>
 									<td>${st.price}</td>
 									<td>${st.status}</td>
 									<td style = "padding: .001rem;">

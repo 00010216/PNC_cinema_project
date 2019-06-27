@@ -1,5 +1,7 @@
 package com.uca.cinema.controller;
 
+import java.util.logging.Logger;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import com.uca.cinema.service.LoginService;
 public class MainController {
 
 	public final static String USER_SESSION = "userlog";
+	Logger log = Logger.getLogger(MainController.class.getSimpleName());
 	
 	@Autowired
 	LoginService loginService;
@@ -44,7 +47,7 @@ public class MainController {
 				return "redirect:/admin/movies";
 			else return "redirect:/user/home";
 		}
-		model.clear();
+		//model.clear();
 		return "login";
 	}
 	

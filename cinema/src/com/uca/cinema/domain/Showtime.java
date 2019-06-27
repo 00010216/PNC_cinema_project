@@ -1,7 +1,7 @@
 package com.uca.cinema.domain;
 
 import javax.persistence.*;
-import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class Showtime  {
 
 	private double price;
 
-	private Time schedule;
+	private Date schedule;
 
 	private Boolean status;
 
@@ -42,23 +42,31 @@ public class Showtime  {
 	private Date updatedDate;
 
 	//bi-directional many-to-one association to Movie
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_movie")
 	private Movie movie;
 
-	//bi-directional many-to-one association to ShowtimeFormat
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_format")
 	private ShowtimeFormat showtimeFormat;
 
-	//bi-directional many-to-one association to Theater
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_theater")
 	private Theater theater;
 
 	//bi-directional many-to-one association to Ticket
-	@OneToMany(mappedBy="showtime")
+	@OneToMany(mappedBy="showtime", fetch = FetchType.LAZY)
 	private List<Ticket> tickets;
+	
+	private Date showdate;
+
+	public Date getShowdate() {
+		return showdate;
+	}
+
+	public void setShowdate(Date showdate) {
+		this.showdate = showdate;
+	}
 
 	public Showtime() {
 	}
@@ -103,11 +111,16 @@ public class Showtime  {
 		this.price = price;
 	}
 
-	public Time getSchedule() {
+	public Date getSchedule() {
 		return this.schedule;
 	}
+	
+	public String getScheduleString() {
+		String time= new SimpleDateFormat("HH:mm").format(schedule);
+		return time;
+	}
 
-	public void setSchedule(Time schedule) {
+	public void setSchedule(Date schedule) {
 		this.schedule = schedule;
 	}
 
@@ -167,6 +180,15 @@ public class Showtime  {
 		this.tickets = tickets;
 	}
 
+	public String getDelegateShowdate() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		return dateFormat.format(showdate);
+	}
+	
+	public String getDelegateSchedule() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+		return dateFormat.format(schedule);
+	}
 	public Ticket addTicket(Ticket ticket) {
 		getTickets().add(ticket);
 		ticket.setShowtime(this);
