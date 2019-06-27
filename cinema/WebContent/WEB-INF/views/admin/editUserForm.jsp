@@ -30,8 +30,8 @@
              <form:form action="${pageContext.request.contextPath}/admin/${actionForm}" method="POST" modelAttribute="CUser" style="padding: 8px;width: 100%;">
              <div style="display: flex;flex-direction: row;/*height: 10%;*/margin-bottom: 8px;justify-content: center;align-items: center;">
              
-                 <h3 style="flex: 10;">Registro de Usuario</h3>
-                 <button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/theaters'" type="button" style="flex: 2;height: 37px; color:#CC3333;">
+                 <h3 style="flex: 10;">Edición de Usuario</h3>
+                 <button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/users'" type="button" style="flex: 2;height: 37px; color:#CC3333;">
                      <i class="fa fa-plus"></i>
                      Regresar	                	
                  </button>                
@@ -40,15 +40,15 @@
                  <div class="col-md-6">
                      <div class="form-group">
                          <label for="name">Nombres</label>                		                	
-                         <form:input class="form-control" type="text" id="name"  path="firstName"/>	
-                                             
+                         <form:input class="form-control" type="text" id="name"  path="firstName" disabled="true" />	
+                         <form:hidden path="idUser"/>
                          <form:errors path="firstName" cssStyle="color: #E81505"/>
                      </div>	                	
                      
                  </div>	
                  <div class="col-md-6">
                      <div class="form-group"><label for="capacity">Apellidos</label>
-                         <form:input class="form-control" type="text" id="lastName" path="lastName"/>
+                         <form:input class="form-control" type="text" id="lastName" path="lastName" disabled="true"/>
                          <form:errors path="lastName" cssStyle="color: #E81505"/>
                          </div>
                  </div>	
@@ -57,7 +57,7 @@
                  <div class="col-md-4">
                      <div class="form-group">
                          <label for="name">Cumpleaños</label>                		                	
-                         <form:input class="form-control" path="birthday" type="date"/>
+                         <form:input class="form-control" path="birthday" type="date" disabled="true" />
                          
                      </div>	                	
                      
@@ -65,22 +65,14 @@
                  <div class="col-md-4">
                      <div class="form-group">
                          <label for="capacity">Pais</label>
-                         <select class="form-control" name="country_id">
-                             <c:forEach items="${countries}" var="country">
-                                 <option value="${country.getIdCountry()}">${country.getName()}</option>
-                             </c:forEach>         
-                         </select>            				
+                         <input class="form-control" value="${ countryName }" disabled="true" />                                                          			
                          
                          </div>
                  </div>	
                  <div class="col-md-4">
                      <div class="form-group">
                          <label for="capacity">Municipio</label>
-                         <select class="form-control" name="municipality_id">
-                             <c:forEach items="${municipalities}" var="municipality">
-                                 <option value="${municipality.getIdMun()}">${municipality.getName()}</option>
-                             </c:forEach>         
-                         </select>
+                         <input class="form-control" value="${ municipalityName }" disabled="true" />
                          </div>
                  </div>
              </div>
@@ -88,7 +80,7 @@
                  <div class="col-md-8">
                      <div class="form-group">
                          <label for="name">Direccion</label>                		                	
-                         <form:input class="form-control" type="text" id="name"  path="address"/>		                	
+                         <form:input class="form-control" type="text" id="name"  path="address" disabled="true" />		                	
                          <form:errors path="address" cssStyle="color: #E81505"/>
                      </div>	                	             	
                  </div>
@@ -103,23 +95,23 @@
                  <div class="col-md-4">
                      <div class="form-group">
                          <label for="name">Usuario</label>                		                	
-                         <form:input class="form-control" type="text" id="username"  path="username" maxlength="20"/>		                	
+                         <form:input class="form-control" type="text" id="username"  path="username" disabled="true"/>		                	
                          <form:errors path="username" cssStyle="color: #E81505"/>
-                     </div>	                	
-                     
+                     </div>	                	                    
                  </div>	
-                 <div class="col-md-4">
-                     <div class="form-group"><label for="capacity">Correo</label>
-                         <form:input class="form-control" type="mail" id="email" path="email"/>
-                         <form:errors path="email" cssStyle="color: #E81505"/>
-                         </div>
-                 </div>	
-                 <div class="col-md-4">
-                     <div class="form-group"><label for="capacity">Contraseña</label>
-                         <form:password class="form-control" showPassword="false" path="passwd"/>		                	
-                         <form:errors path="passwd" cssStyle="color: #E81505"/>
-                         </div>
-                 </div>
+                 <div class="col-md-8">
+	                  <div class="form-check-inline">                	
+	                    <label class="form-check-label">
+	                      <form:radiobutton checked="true" path="status" value="true" class="form-check-input"/> Disponible 
+	                    </label>
+	                  </div>
+	                  <div class="form-check-inline">
+	                    <label class="form-check-label">
+	                      <form:radiobutton path="status" value="false" class="form-check-input"/> No disponible
+	                    </label>
+	                  </div>
+                  </div>
+				                                 
              </div>         	           	            	                
              <div class="form-group">               		                	
                  <div class="form-group" style="display: flex; justify-content: center;">

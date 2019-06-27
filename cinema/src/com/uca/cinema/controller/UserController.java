@@ -9,6 +9,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -23,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.uca.cinema.domain.CUser;
 import com.uca.cinema.domain.Country;
 import com.uca.cinema.domain.Municipality;
+import com.uca.cinema.domain.Theater;
 import com.uca.cinema.service.CountryInterface;
 import com.uca.cinema.service.MunicipalityInterface;
 import com.uca.cinema.service.UserInterface;
@@ -39,7 +42,7 @@ public class UserController {
 	@Autowired
 	UserInterface userService;
 	
-	@RequestMapping(value="/admin/addUserForm")
+	@RequestMapping(value="/admin/userForm")
 	public ModelAndView userRegister(Model model) {												
 		ModelAndView mav = new ModelAndView();
 		
@@ -62,7 +65,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/admin/addUser", method=RequestMethod.POST)
-	public String addUser(@Valid @ModelAttribute CUser user,  BindingResult result, RedirectAttributes redirectAttributes) {
+	public String addUser(@Valid @ModelAttribute CUser user,@RequestParam  String municipality_id, @RequestParam String country_id, BindingResult result, RedirectAttributes redirectAttributes) {
 		
 		String redirect = "redirect:/";	
 		
@@ -74,11 +77,59 @@ public class UserController {
 		}
 		else {						
 			
-			userService.create(user, "1", "1");			
-			redirect += "login";
+			userService.create(user, country_id, municipality_id);			
+			redirect += "admin/users";
 		}
 		
 		
+		return redirect;
+	}
+	
+	@RequestMapping(value="/admin/users")
+	public ModelAndView showTheaters(@RequestParam(required=false) String message) {
+		ModelAndView mav = new ModelAndView();
+		
+		List<CUser> users = userService.findAll();
+		
+		mav.addObject("users", users);
+		mav.addObject("message", message);
+		mav.setViewName("admin/users");
+		return mav;
+	}
+	
+	@RequestMapping(value="/admin/editUserForm")
+	@Transactional(propagation = Propagation.REQUIRED)
+	public ModelAndView editUser(@RequestParam String user_id) {
+		ModelAndView mav = new ModelAndView();
+		
+		CUser user = userService.findOne(Integer.valueOf(user_id));
+						
+		mav.addObject("CUser", user);
+		mav.addObject("countryName", user.getCountry().getName());
+		mav.addObject("municipalityName", user.getMunicipality().getName());
+		mav.addObject("actionForm", "editUser" );
+				
+		mav.setViewName("admin/editUserForm");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/admin/editUser", method=RequestMethod.POST)
+	public String editUser(@ModelAttribute CUser user, RedirectAttributes redirectAttributes) {
+		String redirect = "redirect:/";			
+		
+		try {									
+			System.out.println("Entro aqu");
+			userService.update(user);
+            redirectAttributes.addAttribute("message", "Se actualizo el registro correctamente");
+            redirect += "admin/users";
+		}
+		catch(Exception e) {						
+			redirectAttributes.addAttribute("user_id", user.getIdUser());
+					
+			redirect += "admin/editUserForm";
+		}
+											
 		return redirect;
 	}
 	

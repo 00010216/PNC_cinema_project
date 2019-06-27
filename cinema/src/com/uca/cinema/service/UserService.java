@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,14 +28,15 @@ public class UserService implements UserInterface{
 	CountryRepository countryRepository;
 	
 	@Override
-	public void create(CUser user, String countryId, String municipalityId) {				
+	public void create(CUser user, String countryId, String municipalityId) {
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		
 		user.setCountry(countryRepository.findById(Integer.valueOf(countryId)).get());
 		user.setMunicipality(municipalityRepository.findById(Integer.valueOf(municipalityId)).get());
-		user.setBalance(BigDecimal.valueOf(20).movePointLeft(2));
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		user.setBalance(BigDecimal.valueOf(20).movePointLeft(0));
+		user.setStatus(false);			
 		try {
-			Date date = new Date();
-			
+			Date date = new Date();			
 			String modifiedDate= new SimpleDateFormat("yyyy-MM-dd").format(date);
 			user.setCreatedDate(df.parse(modifiedDate ));
 			
@@ -42,16 +44,29 @@ public class UserService implements UserInterface{
  
 			e.printStackTrace();
 		}
-		
-		
+				
 		userRepository.save(user);
 	}
 
 	@Override
-	public void update(CUser user, String countryId, String municipalityId) {
+	public void update(CUser user) {
 		// TODO Auto-generated method stub
-		userRepository.save(user);
+		CUser usuario = userRepository.findById(user.getIdUser()).get();
+		usuario.setStatus(user.getStatus());
+		userRepository.save(usuario);
 		
+	}
+
+	@Override
+	public List<CUser> findAll() {
+		// TODO Auto-generated method stub
+		return userRepository.findAll();
+	}
+
+	@Override
+	public CUser findOne(Integer user_id) {
+		// TODO Auto-generated method stub
+		return userRepository.findById(user_id).get();
 	}
 
 }

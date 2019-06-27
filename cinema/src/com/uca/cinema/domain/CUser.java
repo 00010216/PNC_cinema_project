@@ -3,6 +3,7 @@ package com.uca.cinema.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
@@ -70,7 +71,7 @@ public class CUser  {
 	@Column(name="updated_date")
 	private Date updatedDate;
 	
-	@NotEmpty(message="Este campo no puede estar vacio")
+	@NotEmpty(message="Este campo no puede estar vacio")	
 	private String username;
 
 	//bi-directional many-to-one association to CUser
@@ -193,6 +194,10 @@ public class CUser  {
 
 	public Boolean getStatus() {
 		return this.status;
+	}
+	
+	public String getDelegateStatus() {
+		return this.status ? "Disponible" : "No disponible";
 	}
 
 	public void setStatus(Boolean status) {
