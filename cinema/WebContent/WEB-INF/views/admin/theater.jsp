@@ -8,8 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-material-design.min.css">
-<link href="${pageContext.request.contextPath}/resources/css/dashboard.css" rel="stylesheet">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-material-design.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/styles.css">
 <link href="${pageContext.request.contextPath}/resources/css/dashboard.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
@@ -17,8 +15,8 @@
 <body>
 	<%@include file="header.jsp" %>
 	<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2">Usuarios</h1>
+           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Salas</h1>
           </div>
     <div class="container">
       <div class="row">
@@ -72,7 +70,7 @@
                     </div>
                 </div>                		                	
                 <div class="form-group" style="display: flex; justify-content: center;">
-                    <button class="btn btn-raised btn-primary" type="submit" style="background-color: #CC3333; color: white">
+                    <button class="btn btn-raised btn-danger" type="submit">
                         Guardar
                     </button>
                 </div>                										  				 					 					

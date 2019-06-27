@@ -57,13 +57,13 @@
              <div class="col-md-4 mb-3">
                 <label for="state">Género</label>
                 <form:select class="custom-select d-block w-100" id="state" path = "genres">
-                  <option value ="terror">Terror</option>
-                  <option value="comedia">Comedia</option>
-                  <option value="animada">Animada</option>
-                  <option value="romance">Romance</option>
-                  <option value = "accion">Acción</option>
-                  <option value = "fantasia">Fantasía</option>
-                  <option value = "cienciaf">Ciencia Ficción</option>
+                  <option value ="Terror">Terror</option>
+                  <option value="Comedia">Comedia</option>
+                  <option value="Animada">Animada</option>
+                  <option value="Romance">Romance</option>
+                  <option value = "Acción">Acción</option>
+                  <option value = "Fantasía">Fantasía</option>
+                  <option value = "Ciencia Ficción">Ciencia Ficción</option>
                 </form:select>
               </div>
               <div class="col-md-3 mb-3">
@@ -82,7 +82,7 @@
               <label>Estatus</label>
                     <div class="d-block my-2">
                    		
-                         <form:radiobutton  name="status" path="status" value="true"/> 
+                         <form:radiobutton  name="status" path="status" value="true"  checked="checked"/> 
                           <label>Activo</label>                         
                          <form:radiobutton name="status" path="status" value="false"/>
                           <label>Inactivo</label>   
