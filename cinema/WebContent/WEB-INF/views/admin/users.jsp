@@ -20,23 +20,16 @@
 <body>
 	<%@include file="header.jsp" %>
 	<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
             <h1 class="h2">Usuarios</h1>
-          </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-0 order-md-2 mb-4">
-        
-        </div>
-        <div class="col-md-12 order-md-1" style="display:flex; justify-content: center; align-items: center; display: flex; justify-items: center; align-items: center; flex-direction: column;">
-            <div style="width: 90%;display: flex;flex-direction: row;/*height: 10%;*/margin-bottom: 8px;justify-content: center;align-items: center;">
-            	
-                <h1 style="flex: 10;">Lista de usuarios</h1>
-                <button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/userForm'" type="button" style="flex: 2;height: 37px;">
-                	<i class="fa fa-plus"></i>
-                	Registrar Usuario
-                </button>                
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <button class="btn btn-large btn-outline-secondary" onclick = "window.location.href='${pageContext.request.contextPath}/admin/userForm'">
+                <span data-feather="plus-circle"></span>
+                Agregar Usuario
+              </button>
             </div>
+          </div>
+   
             <c:if test = "${message != null }">
             	<div class="alert alert-success alert-dismissible fade show" role="alert" style="width: 90%;">
 				  ${message}
@@ -45,7 +38,7 @@
 				  </button>
 				</div>                     		
       		</c:if>           
-            <div style="width: 90%;/*height: 100px;*/">
+ 
                 <div class="table-responsive-sm" style="height: 450px;overflow-y: scroll;padding-right: 20px;">
                     <table class="table" >
                         <thead>
@@ -66,17 +59,23 @@
 									<td><c:out value = "${user.getUsername()}"/></td>
 									<td><c:out value = "${user.getEmail()}"/></td>
 									<td><fmt:formatDate type = "date" 
-         dateStyle = "short" value = "${user.getBirthday()}" /></td>
+         								dateStyle = "short" value = "${user.getBirthday()}" /></td>
 									<td><c:out value = "${user.getBalance()}"/></td>
-									<td><c:out value = "${user.getDelegateStatus() }"/></td>			
-									<td style="display: flex;justify-content: center;align-items: center;">
-										<button class="btn" type="button" onclick="location.href='${pageContext.request.contextPath}/admin/editUserForm?user_id=${user.getIdUser()}'" style="/*flex: 1;*/margin-right: 8px;">
-											<i class="fa fa-edit" style="/*margin-right: 8px;*/"></i>										
-										</button>
-										<button class="btn btn-primary deleteButton" type="button" data-id="${theater.getIdTheater()}" data-toggle="modal" data-target="#deleteModal" data-url="${pageContext.request.contextPath}/admin/delete-theater-element?id=${theater.getIdTheater()}" 
-                                        	style="/*flex: 1;*/">
-                                        	<i class="fa fa-trash"></i>
-                                        </button>
+									<td><c:out value = "${user.getDelegateStatus() }"/></td>
+                                    <td style="display: flex;justify-content: center;align-items: center; padding: .2rem;" >
+										
+										<div class="btn-group d-flex justify-content-end mr-3 " >
+							                <button class="btn btn-outline-danger " type="button" onclick="location.href='${pageContext.request.contextPath}/admin/editUserForm?user_id=${user.getIdUser()}'" >
+												<span data-feather="edit">								
+											</button>
+											<!-- Agregar funcionalidad de activar y desactivar -->
+							                <button class="btn btn-outline-danger " type="button" onclick="" >
+												<span data-feather="lock"></span>						
+											</button>
+											<button class="btn btn-outline-danger  " type="button" onclick="" >
+												<span data-feather="unlock"></span>						
+											</button>
+              							</div>
                                     </td>
 								</tr>
 							</c:forEach>
@@ -85,7 +84,7 @@
                     </table>
                 </div>
             </div>        	             
-      </div>
+  
         </div>
          
 
