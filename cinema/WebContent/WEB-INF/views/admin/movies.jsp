@@ -42,18 +42,25 @@
                 <p class="text-dark">${movie.title}</p>
               </h3>
               <p class="h6 mb-auto">${movie.synopsis}</p>
-              <div class="btn-group d-flex justify-content-end " style="height: 40px;padding-top: 8px;">
+              <strong class = "text-danger">${movie.status}</strong>
+              <!-- Agregar funcionalida de activar y desactivar -->
+              <div class="btn-group d-flex justify-content-end " style="height: 40px;">
+		                 <button class="btn btn-outline-secondary " type="button" onclick="" >
+											<span data-feather="lock"></span>						
+										</button>
+		                 <button class="btn btn-outline-secondary " type="button" onclick="" >
+											<span data-feather="unlock"></span>						
+										</button>
+              		</div>
+            </div>
+             <div class="btn-group d-flex justify-content-end mr-3 " style="height: 40px;padding-top: 8px;">
 		                 <button type="button" class="btn btn-danger bmd-btn-fab bmd-btn-fab-sm" onclick = "window.location.href='${pageContext.request.contextPath}/admin/movie/detail/${movie.idMovie}'">
 		 					<span data-feather="eye"></span>
 						</button>
 		                <button type = "button" class="btn btn-danger bmd-btn-fab bmd-btn-fab-sm" onclick = "window.location.href='${pageContext.request.contextPath}/admin/movie/edit/${movie.idMovie}'">
-		                	<span data-feather="edit">
+		                	<span data-feather="edit"></span>
 		                </button>
-		                <button type="button" class="btn btn-danger bmd-btn-fab bmd-btn-fab-sm" onclick = "window.location.href='${pageContext.request.contextPath}/admin/movie/delete/${movie.idMovie}'">
-		 					<span data-feather="trash-2"></span>
-						</button>
               		</div>
-            </div>
           </div>
           </div>
   		</c:forEach>
