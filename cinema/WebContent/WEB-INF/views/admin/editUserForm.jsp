@@ -18,7 +18,11 @@
 	<%@include file="header.jsp" %>
 	<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2">Usuarios</h1>
+            <h1 class="h2">Usuario</h1>
+             <button class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/admin/users'" type="button" >
+                     <i class="fa fa-plus"></i>
+                     Regresar	                	
+                 </button>
           </div>
     <div class="container">
       <div class="row">
@@ -28,27 +32,20 @@
         <div class="col-md-12 order-md-1" style="display:flex; justify-content: center; align-items: center">
         	 
              <form:form action="${pageContext.request.contextPath}/admin/${actionForm}" method="POST" modelAttribute="CUser" style="padding: 8px;width: 100%;">
-             <div style="display: flex;flex-direction: row;/*height: 10%;*/margin-bottom: 8px;justify-content: center;align-items: center;">
-             
-                 <h3 style="flex: 10;">Registro de Usuario</h3>
-                 <button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/theaters'" type="button" style="flex: 2;height: 37px; color:#CC3333;">
-                     <i class="fa fa-plus"></i>
-                     Regresar	                	
-                 </button>                
-             </div>        
+                   
              <div class="row">
                  <div class="col-md-6">
                      <div class="form-group">
                          <label for="name">Nombres</label>                		                	
-                         <form:input class="form-control" type="text" id="name"  path="firstName"/>	
-                                             
+                         <form:input class="form-control" type="text" id="name"  path="firstName" disabled="true" />	
+                         <form:hidden path="idUser"/>
                          <form:errors path="firstName" cssStyle="color: #E81505"/>
                      </div>	                	
                      
                  </div>	
                  <div class="col-md-6">
                      <div class="form-group"><label for="capacity">Apellidos</label>
-                         <form:input class="form-control" type="text" id="lastName" path="lastName"/>
+                         <form:input class="form-control" type="text" id="lastName" path="lastName" disabled="true"/>
                          <form:errors path="lastName" cssStyle="color: #E81505"/>
                          </div>
                  </div>	
@@ -57,30 +54,22 @@
                  <div class="col-md-4">
                      <div class="form-group">
                          <label for="name">Cumpleaños</label>                		                	
-                         <form:input class="form-control" path="birthday" type="date"/>
+                         <form:input class="form-control" path="birthday" type="date" disabled="true" />
                          
                      </div>	                	
                      
                  </div>	
                  <div class="col-md-4">
                      <div class="form-group">
-                         <label for="capacity">Pais</label>
-                         <select class="form-control" name="country_id">
-                             <c:forEach items="${countries}" var="country">
-                                 <option value="${country.getIdCountry()}">${country.getName()}</option>
-                             </c:forEach>         
-                         </select>            				
+                         <label for="capacity">Pais de origen</label>
+                         <input class="form-control" value="${ countryName }" disabled="true" />                                                          			
                          
                          </div>
                  </div>	
                  <div class="col-md-4">
                      <div class="form-group">
                          <label for="capacity">Municipio</label>
-                         <select class="form-control" name="municipality_id">
-                             <c:forEach items="${municipalities}" var="municipality">
-                                 <option value="${municipality.getIdMun()}">${municipality.getName()}</option>
-                             </c:forEach>         
-                         </select>
+                         <input class="form-control" value="${ municipalityName }" disabled="true" />
                          </div>
                  </div>
              </div>
@@ -88,7 +77,7 @@
                  <div class="col-md-8">
                      <div class="form-group">
                          <label for="name">Direccion</label>                		                	
-                         <form:input class="form-control" type="text" id="name"  path="address"/>		                	
+                         <form:input class="form-control" type="text" id="name"  path="address" disabled="true" />		                	
                          <form:errors path="address" cssStyle="color: #E81505"/>
                      </div>	                	             	
                  </div>
@@ -103,31 +92,13 @@
                  <div class="col-md-4">
                      <div class="form-group">
                          <label for="name">Usuario</label>                		                	
-                         <form:input class="form-control" type="text" id="username"  path="username"/>		                	
+                         <form:input class="form-control" type="text" id="username"  path="username" disabled="true"/>		                	
                          <form:errors path="username" cssStyle="color: #E81505"/>
-                     </div>	                	
-                     
+                     </div>	                	                    
                  </div>	
-                 <div class="col-md-4">
-                     <div class="form-group"><label for="capacity">Correo</label>
-                         <form:input class="form-control" type="mail" id="email" path="email"/>
-                         <form:errors path="email" cssStyle="color: #E81505"/>
-                         </div>
-                 </div>	
-                 <div class="col-md-4">
-                     <div class="form-group"><label for="capacity">Contraseña</label>
-                         <form:password class="form-control" showPassword="false" path="passwd"/>		                	
-                         <form:errors path="passwd" cssStyle="color: #E81505"/>
-                         </div>
-                 </div>
+                                                 
              </div>         	           	            	                
-             <div class="form-group">               		                	
-                 <div class="form-group" style="display: flex; justify-content: center;">
-                     <button class="btn btn-raised" type="submit" style="background-color: #CC3333; color: white">
-                         Guardar
-                     </button>
-                 </div>                										  				 					 					
-              </div>
+            
              </div>            
          </form:form>
       </div>

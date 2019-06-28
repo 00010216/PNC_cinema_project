@@ -3,6 +3,7 @@
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Cinema XYZ</a>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
+        
           <a class="nav-link" href="${pageContext.request.contextPath}/logout">Cerrar Sesión</a>
         </li>
       </ul>
@@ -36,7 +37,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="${pageContext.request.contextPath}/admin/users">
                   <span data-feather="users"></span>
                   Usuarios
                 </a>
@@ -47,7 +48,13 @@
                   Logs
                 </a>
               </li>
-             
+              <hr>
+               <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/admin/user/movies">
+                  <span data-feather="user"></span>
+                  User session
+                </a>
+              </li>
             </ul>
           </div>
         </nav>

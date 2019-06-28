@@ -3,6 +3,7 @@ package com.uca.cinema.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
@@ -61,6 +62,12 @@ public class CUser  {
 
 	private Boolean status;
 	
+	@Transient
+	private String countryId;
+	
+	@Transient
+	private String municipalityId;
+	
 	private Boolean loggedin;
 
 	@Column(name="updated_by")
@@ -70,7 +77,7 @@ public class CUser  {
 	@Column(name="updated_date")
 	private Date updatedDate;
 	
-	@NotEmpty(message="Este campo no puede estar vacio")
+	@NotEmpty(message="Este campo no puede estar vacio")	
 	private String username;
 
 	//bi-directional many-to-one association to CUser
@@ -193,6 +200,10 @@ public class CUser  {
 
 	public Boolean getStatus() {
 		return this.status;
+	}
+	
+	public String getDelegateStatus() {
+		return this.status ? "Disponible" : "No disponible";
 	}
 
 	public void setStatus(Boolean status) {
@@ -321,4 +332,20 @@ public class CUser  {
 		this.loggedin = loggedin;
 	}
 
+	public String getCountryId() {
+		return countryId;
+	}
+	
+	public String getMunicipalityId() {
+		return municipalityId;
+	}
+	
+	public void setCountryid(String countryId) {
+		this.countryId = countryId;
+	}
+	
+	public void setMunicipalityId(String municipalityId) {
+		this.municipalityId = municipalityId;
+	}
+	
 }

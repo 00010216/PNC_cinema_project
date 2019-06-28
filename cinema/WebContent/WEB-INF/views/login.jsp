@@ -23,6 +23,9 @@
 		<input type="password" id="inputPassword" class="form-control" name="password" placeholder="Ingrese su contraseña" required>
 		
 		<button class="btn btn-lg btn-outline-dark btn-block mt-4" type="submit">Ingresar</button>
+		<div class = "mt-4">
+			<a href = "${pageContext.request.contextPath}/admin/userForm" style = "color: #CC3333;">¿No tienes cuenta? Registrate</a>
+		</div>
 		
        	<c:if test = "${not empty error}">
 		<div class="alert alert-danger" role="alert">${error}</div>

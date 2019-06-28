@@ -1,5 +1,7 @@
 package com.uca.cinema.controller;
 
+import java.util.logging.Logger;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import com.uca.cinema.service.LoginService;
 public class MainController {
 
 	public final static String USER_SESSION = "userlog";
+	Logger log = Logger.getLogger(MainController.class.getSimpleName());
 	
 	@Autowired
 	LoginService loginService;
@@ -44,7 +47,7 @@ public class MainController {
 				return "redirect:/admin/movies";
 			else return "redirect:/user/home";
 		}
-		model.clear();
+		//model.clear();
 		return "login";
 	}
 	
@@ -64,7 +67,7 @@ public class MainController {
 			CUser user  = loginService.authUser(username, password);
 			if (user != null) {
 				if(user.getLoggedin()) {
-					ra.addFlashAttribute("error", "El usuario especificado ya está conectado. Por favor cierre otras cuentas para continuar.");
+					ra.addFlashAttribute("error", "El usuario especificado ya est� conectado. Por favor cierre otras cuentas para continuar.");
 				}else {
 					loginService.sessionUser(true, user.getIdUser());
 					user.setLoggedin(true);
@@ -78,7 +81,7 @@ public class MainController {
 			}
 		}
 		catch(Exception e) {
-			ra.addFlashAttribute("error","Algo salió mal - No se pudo conectar, inténtelo más tarde");
+			ra.addFlashAttribute("error","Algo sali� mal - No se pudo conectar, int�ntelo m�s tarde");
 			e.printStackTrace();
 		}
 		return "redirect:/login";
