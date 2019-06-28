@@ -5,20 +5,50 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Cartelera</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-material-design.min.css">
 <link href="${pageContext.request.contextPath}/resources/css/dashboard.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/slider.css" rel="stylesheet">
 </head>
 <body>
 	<%@include file="u_header.jsp" %>
-	<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-		<div class="row">
-            <div class="col-md-5"> 
-            <!-- Debe mandar id asi con el controller manda a la otra vista el objeto -->
-            <img class="img-fluid card-img-right flex-auto d-none d-md-block" style="height: 13rem;width: 10rem;" src="${pageContext.request.contextPath}/resources/img/mib.jpg" alt="Card image cap"
-            onclick = "">
-            </div>
-            </div>
-        </main>    
+			<div class = "mt-4">
+          <div class=" ml-4 mr-4 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Cartelera disponible</h1>
+          </div>
+	
+	${nolist}
+	      <div class = "d-flex justify-content-center"style = "background-color: #DFDEDE;">
+	      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  
+   <div class="slider-holder mt-4 ml-0 mr-0" style = "width: 1040px;">
+	        <span id="slider-image-1"></span>
+	        <span id="slider-image-2"></span>
+	        <span id="slider-image-3"></span>
+	        <div class="image-holder" style = "background-color: #DFDEDE;">
+	             <c:forEach items="${movies}" var="movie">
+			            <!-- Debe mandar id asi con el controller manda a la otra vista el objeto -->
+			            <img class="slider-image img-fluid card-img-right flex-auto d-none d-md-block" style="height: 22rem;width: 16rem; padding: 1rem;" src="${movie.posterLink}" alt="Card image cap"
+			            onclick = "window.location.href='${pageContext.request.contextPath}/admin/user/movie/detail/${movie.idMovie}'">
+	            </c:forEach>  
+	        </div>
+	        <div class="button-holder">
+	            <a href="#slider-image-1" class="slider-change"></a>
+	            <a href="#slider-image-2" class="slider-change"></a>
+	        </div>
+    	</div> 
+  <a class="carousel-control-prev slider-changer" href="#slider-image-1" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next slider-changer" href="#slider-image-2" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+         
+        </div>
+<%@include file="u_footer.jsp" %> 
+
 </body>
 </html>
