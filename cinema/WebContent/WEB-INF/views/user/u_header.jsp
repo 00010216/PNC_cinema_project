@@ -3,7 +3,17 @@
     	<img class = "mr-1" src="${pageContext.request.contextPath}/resources/img/logoxyzwhite.png" alt="logo" style="width:40px;">
 	   <strong>Cinema</strong>
  	 </a>
+ 	   
+    <ul class="navbar-nav bd-navbar-nav flex-row">
+      <li class="nav-item">
+        <a class="nav-link " href="${pageContext.request.contextPath}/admin/user/movies" >Películas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/bootstrap-material-design/docs/4.0/getting-started/introduction/">Transacciones</a>
+      </li>
+     
      <ul class="navbar-nav px-3">
+  			
         <li class="nav-item text-nowrap">
           <a class="nav-link" href="${pageContext.request.contextPath}/logout">Cerrar Sesión</a>
         </li>

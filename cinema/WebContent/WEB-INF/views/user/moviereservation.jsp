@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Reservar</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-material-design.min.css">
 <link href="${pageContext.request.contextPath}/resources/css/dashboard.css" rel="stylesheet">
 </head>
@@ -13,53 +13,24 @@
 
 	<%@include file="u_header.jsp" %>
 	<main role="main" class="m-4">
-
-	      <div class="row">
-	        <div class="col-md-5 order-md-1 mb-4">
-			        	<div class="row">
-		        <div class="col-md-4">
-		          .col-md-8
-		          <div class="row">
-		            <div class="col-md-6">.col-md-6</div>
-		            <div class="col-md-6">.col-md-6</div>
-		          </div>
-		        </div>
-		        <div class="col-md-7">
-					 
-				</div>
-		      </div>
-			</div>
-	        <div class="col-md-5 order-md-2">
-	        	<h4 class="mb-3">Formulario</h4>
+			<div class = "m-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">${movietitle}</h1>
+          </div>
+	
+	        
+	        <div class="row mt-4 d-flex justify-content-center">
+	        <div class= "col-3"></div>
+	        <div class = "col-6">
 	        	<!-- Informacion de la reservacion -->
-	          	<form >
+	          	<form  action = "${pageContext.request.contextPath}/admin/user/ticket/save"><!--:form action = "${pageContext.request.contextPath}/admin/user/ticket/save" method = "POST" modelAttribute = "ticket"-->
 		          <input type="hidden">
-		  
-		           
-		           
-		            <div class="row">
-			        	<div class="col-md-6 mb-3">
-			            	  <label for="state">Formato</label>
-		                <select class="custom-select d-block w-100" id="state">
-		                  <options value ="PG-13">PG-13/>
-		                <select>
-			        	</div>
-			            <div class="col-md-6 mb-3">
-			                 <label for="state">Horario</label>
-		                <select class="custom-select d-block w-100" id="state">
-		                  <options value ="PG-13">PG-13</>
-		                <select>
-			            </div>
-		            </div>
-		            
-		            <div class="col-md-6 mb-3">
-			            	<label for="fecha">Asientos</label>
-			                <input type="text" class="form-control" id="fecha" >
-			        	</div>
-		            
-		   		<hr class="mb-4">
+		          <div class = "row">
+		          <div class = "col-md-4 mb-3"><h2> <span class="badge badge-danger">2D sub <!-- obtner formato --></span></h2></div>
+		         	<div class = "col-md-8 mb-3"><h2> <span class="badge badge-secondary">Dia: 2019-03-21 <!-- obtner formato --> Hora: 12:00</span></h2></div>
+		          </div>
 		           	
-		           	<div class="row">
+		           	<div class="row mt-4 ">
 			        	<div class="col-md-6 mb-3">
 			            	
 		              <label>Desea utilizar el saldo de su cuenta</label>
@@ -74,33 +45,43 @@
 			            <div class="col-md-6 mb-3">
 			            
 		                <label for="precio">Saldo a utilizar</label>
-		                <input type="text" class="form-control" id="precio">
+		                <input style="width: 100px;" type="text" class="form-control" id="precio" placeholder = "0.00">
 		     
 			            </div>
 		            </div>
 		           
 		      <hr class="mb-4">
-		      <div class="mb-3">
-		               <label for="state">Precio</label>
-		                <select class="custom-select d-block w-100" id="state">
-		                  <options value ="PG-13">PG-13/>
-		                <select>
+		      <div class="mb-3 d-flex justify-content-center">
+		      <div class="table-responsive-sm table-bordered"  style="width: 500px;">
+                    <table class="table" >
+                        <thead>
+                            <tr>
+                                <th style="width: 100px;"><strong>Precio unitario<strong></strong></th>
+                                <th style="width: 100px;" for = "asientos" ><strong>Asientos<strong></strong></th>
+                                <th style="width: 100px;"><strong>Subtotal</strong></th>
+                     
+                            </tr>
+                        </thead>
+                        <tbody>
+								<tr>
+									<td><strong>$</strong><!-- jalar valor de precio por el formato elegido --></td>
+									<td><input type="text" class="form-control" id="asientos" ></td>
+									<td><strong>$</strong><!-- valor calculado --></td>
+								</tr>        
+                        </tbody>
+                    </table>
+		            </div>
 		            </div>
 		           <hr class="mb-4">
-		            <button class="btn btn-primary btn-lg btn-block btn-danger" type="submit">Reservar</button>
-	          </form>
+		           <!-- Se redirige vista en boton por propositos de testing -->
+		            <button class="btn btn-primary btn-lg btn-block btn-danger" type="submit" 
+		            >Reservar</button>
+	          </form> <!--:form -->
+	        </div>
+	         <div class= "col-3"></div>
 	      	</div>
-     
-</main>
-      <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">&copy; 2019 CinemaXYZ</p>
-        <ul class="list-inline">
-          <li class="list-inline-item"><a style = "color: #CC3333;" href="#">Privacy</a></li>
-          <li class="list-inline-item"><a style = "color: #CC3333;" href="#">Terms</a></li>
-          <li class="list-inline-item"><a style = "color: #CC3333;" href="#">Support</a></li>
-        </ul>
-      </footer>
     </div>
+    </main>
 <!-- Deberia ir footer -->
 </body>
 </html>
