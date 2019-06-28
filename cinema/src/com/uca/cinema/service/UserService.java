@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.uca.cinema.domain.CUser;
 import com.uca.cinema.repositories.CountryRepository;
+import com.uca.cinema.repositories.LogRepository;
 import com.uca.cinema.repositories.MunicipalityRepository;
 import com.uca.cinema.repositories.UserRepository;
 
@@ -26,6 +27,9 @@ public class UserService implements UserInterface{
 	
 	@Autowired
 	CountryRepository countryRepository;
+	
+	@Autowired
+	LogService logService;
 	
 	@Override
 	public void create(CUser user) {
@@ -65,6 +69,16 @@ public class UserService implements UserInterface{
 	public CUser findOne(Integer user_id) {
 		// TODO Auto-generated method stub
 		return userRepository.findById(user_id).get();
+	}
+
+	@Override	
+	public void changeStatus(String user_id, boolean status, String description, CUser userLoggedIn) {
+		CUser user = this.findOne(Integer.valueOf( user_id));		
+		user.setStatus(status);
+		this.update(user);
+		
+		logService.create(user_id, description, userLoggedIn);
+		
 	}
 
 }

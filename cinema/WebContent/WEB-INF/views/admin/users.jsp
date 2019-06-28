@@ -31,7 +31,7 @@
           </div>
    
             <c:if test = "${message != null }">
-            	<div class="alert alert-success alert-dismissible fade show" role="alert" style="width: 90%;">
+            	<div class="alert alert-success alert-dismissible fade show" role="alert" style="width: 100%;">
 				  ${message}
 				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				    <span aria-hidden="true">&times;</span>
@@ -62,17 +62,16 @@
          								dateStyle = "short" value = "${user.getBirthday()}" /></td>
 									<td><c:out value = "${user.getBalance()}"/></td>
 									<td><c:out value = "${user.getDelegateStatus() }"/></td>
-                                    <td style="display: flex;justify-content: center;align-items: center; padding: .2rem;" >
-										
+                                    <td style="display: flex;justify-content: center;align-items: center; padding: .2rem;" >										
 										<div class="btn-group d-flex justify-content-end mr-3 " >
 							                <button class="btn btn-outline-danger " type="button" onclick="location.href='${pageContext.request.contextPath}/admin/editUserForm?user_id=${user.getIdUser()}'" >
 												<span data-feather="edit">								
 											</button>
 											<!-- Agregar funcionalidad de activar y desactivar -->
-							                <button class="btn btn-outline-danger logButton" type="button" data-id="${user.getIdUser()}" data-name="${user.getUsername()}" data-value="false" data-toggle="modal" data-target="#logModal" >
+							                <button class="btn btn-outline-danger logButton" type="button" data-label-status="desactivar"  data-id="${user.getIdUser()}" data-name="${user.getUsername()}" data-value="false" data-toggle="modal" data-target="#logModal"  ${ user.getStatus() ? "" : "disabled"}>            
 												<span data-feather="lock"></span>						
 											</button>
-											<button class="btn btn-outline-danger  " type="button" onclick="" >
+											<button class="btn btn-outline-danger  logButton" type="button" data-label-status="activar" data-label-status data-id="${user.getIdUser()}" data-name="${user.getUsername()}" data-value="true" data-toggle="modal" data-target="#logModal" ${ user.getStatus() ? "disabled" : ""}>
 												<span data-feather="unlock"></span>						
 											</button>
               							</div>
@@ -108,20 +107,23 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">      
-         <div class="row">
-         	<div class="col-md-12">
-         		<div class="form-group">
-         			<textarea class="form-control" id="text-explain" rows="2">
-         		
-         			</textarea>
-         		</div>
-         		
-         	</div>
-         </div>
+      <div class="modal-body"> 
+      	<form id="modalForm" action="${pageContext.request.contextPath}/admin/updateStatus" method="POST">  
+	         <div class="row">
+	         	<div class="col-md-12">
+	         		<div class="form-group">
+	         			<textarea class="form-control" id="text-description" name="description" rows="3"></textarea>	         				         					         			
+	         			<input id="status-hidden" type="hidden"  name="status"/>
+	         			<input id="user-hidden" type="hidden"  name="user_id"/>
+	         		</div>
+	         		
+	         	</div>
+	         </div>
+         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>        
+      	<button id="submitFormButton" type="button" class="btn btn-primary" type="submit">Aceptar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>        
       </div>
     </div>
   </div>

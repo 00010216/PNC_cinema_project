@@ -14,8 +14,8 @@ import java.sql.Timestamp;
 public class LogAction  {
 
 	@Id
-	@SequenceGenerator(name="LOG_ACTION_IDLOG_GENERATOR", sequenceName="LOG_ACTION_ID_LOG_SEQ")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="LOG_ACTION_IDLOG_GENERATOR")
+	@SequenceGenerator(name="log_action_id_log_seq", sequenceName="log_action_id_log_seq", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="log_action_id_log_seq")
 	@Column(name="id_log")
 	private Integer idLog;
 
