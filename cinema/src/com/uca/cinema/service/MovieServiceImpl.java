@@ -53,4 +53,12 @@ public class MovieServiceImpl implements MovieService{
 		Movie m = findOne(id);
 		movieRepository.delete(m);	
 	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void changeStatus(String movie_id, boolean status) throws DataAccessException {		
+		Movie m = findOne(Integer.valueOf(movie_id));
+		m.setStatus(status);
+		movieRepository.save(m);
+	}
 }
