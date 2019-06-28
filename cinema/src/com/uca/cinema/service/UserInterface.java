@@ -10,4 +10,5 @@ public interface UserInterface {
 	public void create(CUser user);
 	public void update(CUser user);
 	public void changeStatus(String user_id, boolean status, String description, CUser userLoggedIn);
+	public void changeStatus(String user_id, boolean status);
 }

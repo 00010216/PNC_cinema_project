@@ -150,11 +150,17 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/admin/updateStatus", method=RequestMethod.POST)
-	public String changeStatus(@RequestParam boolean status, @RequestParam String user_id, @RequestParam String description, ModelMap map,RedirectAttributes redirectAttributes) {
+	public String changeStatus(@RequestParam boolean status, @RequestParam String user_id, @RequestParam(required=false) String description, ModelMap map,RedirectAttributes redirectAttributes) {
 		String redirect = "redirect:/";					
 		try {									
-			System.out.println("Entro aqu");
-			userService.changeStatus(user_id, status, description, (CUser) map.get(MainController.USER_SESSION));
+			System.out.println(status);
+			if (!status) {
+				userService.changeStatus(user_id, status, description, (CUser) map.get(MainController.USER_SESSION));
+			}
+			else {
+				userService.changeStatus(user_id, status);
+			}
+						
             redirectAttributes.addAttribute("message", "Se actualizo el registro correctamente");
             redirect += "admin/users";
 		}

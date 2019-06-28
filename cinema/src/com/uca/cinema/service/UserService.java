@@ -80,5 +80,12 @@ public class UserService implements UserInterface{
 		logService.create(user_id, description, userLoggedIn);
 		
 	}
+	
+	@Override	
+	public void changeStatus(String user_id, boolean status) {
+		CUser user = this.findOne(Integer.valueOf( user_id));		
+		user.setStatus(status);
+		this.update(user);						
+	}
 
 }

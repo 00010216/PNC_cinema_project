@@ -11,12 +11,25 @@ $(document).ready(function() {
 		var idUser = $(this).attr('data-id');
 		var username = $(this).attr('data-name');
 		var value = $(this).attr('data-value');
+		console.log(value);
+		console.log(value == 'false');
+		if( value == 'false'){					
+			logHeaderLabel.html('¿Por qué desea '+ $(this).attr('data-label-status') + ' a <strong>'  + username + '</strong>?');
+			$(".modal-body").css('display', 'block');
+		}
+		else{
+			$(".modal-body").css('display', 'none');
+			logHeaderLabel.html('¿Desea activar al usuario <strong>'  + username + '</strong>?');
+		}
+			
+		
 		
 		$('#user-hidden').val(idUser);
 		$('#status-hidden').val(value);
 		$('#text-description').val("");
 		
-		logHeaderLabel.html('¿Por qué desea '+ $(this).attr('data-label-status') + ' a <strong>'  + username + '</strong>?');
+		
+		
 		
 		$('#logModal').modal('toggle');
 	});
