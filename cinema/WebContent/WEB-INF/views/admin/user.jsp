@@ -31,7 +31,7 @@
              <div style="display: flex;flex-direction: row;/*height: 10%;*/margin-bottom: 8px;justify-content: center;align-items: center;">
              
                  <h3 style="flex: 10;">Registro de Usuario</h3>
-                 <button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/theaters'" type="button" style="flex: 2;height: 37px; color:#CC3333;">
+                 <button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/users'" type="button" style="flex: 2;height: 37px; color:#CC3333;">
                      <i class="fa fa-plus"></i>
                      Regresar	                	
                  </button>                
@@ -65,23 +65,16 @@
                  <div class="col-md-4">
                      <div class="form-group">
                          <label for="capacity">Pais</label>
-                         <select class="form-control" name="country_id">
-                             <c:forEach items="${countries}" var="country">
-                                 <option value="${country.getIdCountry()}">${country.getName()}</option>
-                             </c:forEach>         
-                         </select>            				
+                         <form:select class="form-control" multiple="false" path="country.idCountry" items="${countries}" itemLabel="name" itemValue="idCountry" />
+                                    				
                          
                          </div>
                  </div>	
                  <div class="col-md-4">
                      <div class="form-group">
                          <label for="capacity">Municipio</label>
-                         <select class="form-control" name="municipality_id">
-                             <c:forEach items="${municipalities}" var="municipality">
-                                 <option value="${municipality.getIdMun()}">${municipality.getName()}</option>
-                             </c:forEach>         
-                         </select>
-                         </div>
+                     	 <form:select class="form-control" multiple="false" path="municipality.idMun" items="${municipalities}" itemLabel="name" itemValue="idMun" />    
+                     </div>
                  </div>
              </div>
              <div class="row">

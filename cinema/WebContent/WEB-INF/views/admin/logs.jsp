@@ -24,7 +24,7 @@
             <div class="btn-toolbar mb-2 mb-md-0">
             <form action="${pageContext.request.contextPath}/admin/getLogsFiltered">
               <div class="input-group input-daterange">
-    				<input type="text" class="form-control" name="fromDate" id="fromDate" value="2019-05-01">
+    				<input type="date" class="form-control" name="fromDate" id="fromDate" value="2019-05-01">
     				<div class="input-group-addon">hasta</div>
     				<input type="date" class="form-control" name="toDate" value="${currentDate}" } >
     				<button class="btn btn-primary" type="submit">Consultar</button>

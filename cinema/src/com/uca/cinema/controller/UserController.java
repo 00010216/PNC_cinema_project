@@ -47,7 +47,7 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		
 		if(!model.containsAttribute("CUser")) {
-			mav.addObject("CUser", new CUser());
+			mav.addObject("CUser", new CUser());			
 		}
 				
 		List<Country> countries= countryService.findAll();
@@ -65,7 +65,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/admin/addUser", method=RequestMethod.POST)
-	public String addUser(@Valid @ModelAttribute CUser user,@RequestParam  String municipality_id, @RequestParam String country_id, BindingResult result, RedirectAttributes redirectAttributes) {
+	public String addUser(@Valid @ModelAttribute CUser user, BindingResult result, RedirectAttributes redirectAttributes) {
 		
 		String redirect = "redirect:/";	
 		
@@ -73,11 +73,11 @@ public class UserController {
 			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.CUser", result);
             redirectAttributes.addFlashAttribute("CUser", user);                        			
             System.out.println(result.toString() );
-            redirect += "admin/addUserForm";
+            redirect += "admin/userForm";
 		}
 		else {						
 			
-			userService.create(user, country_id, municipality_id);			
+			userService.create(user);			
 			redirect += "admin/users";
 		}
 		
@@ -134,7 +134,7 @@ public class UserController {
 	}
 	
 	@InitBinder     
-	public void initBinder(WebDataBinder binder){
+	public void initBinder(WebDataBinder binder){	
 	     binder.registerCustomEditor(Date.class,     
 	    		 new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true, 10));   
 	}

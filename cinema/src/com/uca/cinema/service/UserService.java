@@ -28,11 +28,9 @@ public class UserService implements UserInterface{
 	CountryRepository countryRepository;
 	
 	@Override
-	public void create(CUser user, String countryId, String municipalityId) {
+	public void create(CUser user) {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		
-		user.setCountry(countryRepository.findById(Integer.valueOf(countryId)).get());
-		user.setMunicipality(municipalityRepository.findById(Integer.valueOf(municipalityId)).get());
+				
 		user.setBalance(BigDecimal.valueOf(20).movePointLeft(0));
 		user.setStatus(false);			
 		try {

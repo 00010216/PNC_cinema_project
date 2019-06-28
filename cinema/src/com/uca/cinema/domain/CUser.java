@@ -62,6 +62,12 @@ public class CUser  {
 
 	private Boolean status;
 	
+	@Transient
+	private String countryId;
+	
+	@Transient
+	private String municipalityId;
+	
 	private Boolean loggedin;
 
 	@Column(name="updated_by")
@@ -326,4 +332,20 @@ public class CUser  {
 		this.loggedin = loggedin;
 	}
 
+	public String getCountryId() {
+		return countryId;
+	}
+	
+	public String getMunicipalityId() {
+		return municipalityId;
+	}
+	
+	public void setCountryid(String countryId) {
+		this.countryId = countryId;
+	}
+	
+	public void setMunicipalityId(String municipalityId) {
+		this.municipalityId = municipalityId;
+	}
+	
 }
