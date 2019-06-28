@@ -9,7 +9,7 @@
         <a class="nav-link " href="${pageContext.request.contextPath}/admin/user/movies" >Películas</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/bootstrap-material-design/docs/4.0/getting-started/introduction/">Transacciones</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/admin/logs">Transacciones</a>
       </li>
      
      <ul class="navbar-nav px-3">

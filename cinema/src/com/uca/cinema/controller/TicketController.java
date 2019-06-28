@@ -61,7 +61,7 @@ public class TicketController {
 		ModelAndView mav = new ModelAndView();								
 		
 		mav.addObject("currentDate", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-		mav.setViewName("admin/logs");
+		mav.setViewName("user/logs");
 		
 		return mav;
 	}
@@ -92,7 +92,7 @@ public class TicketController {
 		
 		mav.addObject("showTimes", showTimes);
 					
-		mav.setViewName("admin/logs");
+		mav.setViewName("user/logs");
 		
 		return mav;
 	}

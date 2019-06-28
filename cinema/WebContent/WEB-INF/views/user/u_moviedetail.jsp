@@ -83,7 +83,7 @@ margin-bottom: 0.3rem;
 												<span data-feather="bookmark"></span> 
 												Reservar			
 											</button>
-              				
+              							</div>
                                     </td>
 								</tr>
 							</c:forEach>

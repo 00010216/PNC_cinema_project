@@ -17,20 +17,27 @@
 
 </head>
 <body>
-	<%@include file="header.jsp" %>
-	<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2">Registros</h1>
+	<%@include file="u_header.jsp" %>
+	<div class = "mt-4">
+    <div class=" ml-4 mr-4 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Transacciones</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
             <form action="${pageContext.request.contextPath}/admin/getLogsFiltered">
               <div class="input-group input-daterange">
     				<input type="date" class="form-control" name="fromDate" id="fromDate" value="2019-05-01">
     				<div class="input-group-addon">hasta</div>
     				<input type="date" class="form-control" name="toDate" value="${currentDate}" } >
-    				<button class="btn btn-primary" type="submit">Consultar</button>
+    				<!-- <button class="btn btn-primary" type="submit">Consultar</button>-->
+    				<div class="btn-toolbar mb-2 mb-md-0 ml-2">
+			              <button class="btn btn-large btn-outline-secondary" type = "submit">
+			                <span data-feather="filter"></span>
+			                Filtrar
+			              </button>
+            		</div>
 				</div>
 			</form>
             </div>
+          </div>
           </div>
           <c:if test = "${ message != null }">
             	<div class="alert alert-success alert-dismissible fade show" role="alert" style="width: 90%;">
@@ -39,7 +46,8 @@
 				    <span aria-hidden="true">&times;</span>
 				  </button>
 				</div>                     		
-      		</c:if>       		                                         
+      		</c:if>       	
+      		<div class = "container mt-4 ml-5">    	                                         
                 <div class="table-responsive-sm" style="height: 450px;overflow-y: scroll;padding-right: 20px;">
                     <table class="table" >
                         <thead>
@@ -53,7 +61,9 @@
                         	<c:if test = "${logs.size() > 0 }">
 				            	<c:forEach begin="0" end="${logs.size() - 1}" var="index"> 
 	                        		<tr>
-										<th><button data="${info.get(index)}" class="btn btn-raised logButton" data-toggle="modal" data-target="#logModal" style="background-color: #f44336; color:white;"><i class="far fa-eye"></i></button></th>
+										<th><button data="${info.get(index)}" class="btn btn-raised btn-danger logButton" data-toggle="modal" data-target="#logModal" >
+											<span data-feather="eye"></span>
+										</button></th>
 		                                <th><fmt:formatNumber pattern="00000000" value="${logs.get(index).getIdTicket()}" /></th>
 		                                <th><fmt:formatDate type = "date" dateStyle = "short" value = "${logs.get(index).getPurchaseDate()}" /></th> 
 		         					</tr>
@@ -66,7 +76,7 @@
               	             
       </div>
     </div>
-  <%@include file="footer.jsp" %>
+  <%@include file="u_footer.jsp" %>
   
   <div class="modal fade" id="logModal" tabindex="-1" role="dialog" aria-labelledby="logModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -113,7 +123,7 @@
     </div>
   </div>
 </div>
-
+</div>
 	
    
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
