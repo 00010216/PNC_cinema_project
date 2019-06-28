@@ -1,15 +1,12 @@
 package com.uca.cinema.domain;
 
 import javax.persistence.*;
-import java.sql.Time;
+
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-
-/**
- * The persistent class for the showtime database table.
- * 
- */
 @Entity
 public class Showtime  {
 	@Id
@@ -28,9 +25,10 @@ public class Showtime  {
 	@Column(name="created_date")
 	private Date createdDate;
 
-	private double price;
+	private BigDecimal price;
 
-	private Time schedule;
+	@Temporal(TemporalType.TIME)
+	private Date schedule;
 
 	private Boolean status;
 
@@ -42,23 +40,31 @@ public class Showtime  {
 	private Date updatedDate;
 
 	//bi-directional many-to-one association to Movie
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_movie")
 	private Movie movie;
 
-	//bi-directional many-to-one association to ShowtimeFormat
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_format")
 	private ShowtimeFormat showtimeFormat;
 
-	//bi-directional many-to-one association to Theater
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_theater")
 	private Theater theater;
 
 	//bi-directional many-to-one association to Ticket
-	@OneToMany(mappedBy="showtime")
+	@OneToMany(mappedBy="showtime", fetch = FetchType.LAZY)
 	private List<Ticket> tickets;
+	
+	private Date showdate;
+
+	public Date getShowdate() {
+		return showdate;
+	}
+
+	public void setShowdate(Date showdate) {
+		this.showdate = showdate;
+	}
 
 	public Showtime() {
 	}
@@ -95,19 +101,24 @@ public class Showtime  {
 		this.createdDate = createdDate;
 	}
 
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return this.price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
-	public Time getSchedule() {
+	public Date getSchedule() {
 		return this.schedule;
 	}
+	
+	public String getScheduleString() {
+		String time= new SimpleDateFormat("HH:mm").format(schedule);
+		return time;
+	}
 
-	public void setSchedule(Time schedule) {
+	public void setSchedule(Date schedule) {
 		this.schedule = schedule;
 	}
 
@@ -167,6 +178,15 @@ public class Showtime  {
 		this.tickets = tickets;
 	}
 
+	public String getDelegateShowdate() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		return dateFormat.format(showdate);
+	}
+	
+	public String getDelegateSchedule() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+		return dateFormat.format(schedule);
+	}
 	public Ticket addTicket(Ticket ticket) {
 		getTickets().add(ticket);
 		ticket.setShowtime(this);

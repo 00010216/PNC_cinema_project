@@ -34,8 +34,6 @@ import com.uca.cinema.service.MovieService;
 @RequestMapping("/admin")
 public class MovieController {
 	
-	Logger logger = Logger.getLogger("Movies");
-	
 	@Autowired
 	MovieService movieService;
 	
@@ -77,21 +75,17 @@ public class MovieController {
 	ModelAndView save(@Valid @ModelAttribute("movie") Movie movie, BindingResult br,
 			RedirectAttributes ra, HttpServletRequest req, @ModelAttribute("auth") boolean auth) {
 		ModelAndView mav = new ModelAndView();
-		logger.log(Level.SEVERE, "Iniciando el metodo save");
 		if (!auth) {
 			mav.clear();
 			return new ModelAndView("redirect:/");
 		}
 		if (br.hasErrors()) {
 			mav.setViewName("moviesform");
-			logger.log(Level.SEVERE, "el form tiene errores");
 		} else {
-			logger.log(Level.SEVERE, "Envio correcto, redirigir a admin/movies");
 			RedirectView rv = new RedirectView(req.getContextPath() + "/admin/movies");
 			rv.setExposeModelAttributes(false);
 			try {
 				movieService.save(movie);
-				logger.log(Level.SEVERE, "Se ingreso a la base de datos");
 				ra.addFlashAttribute("success", true);	
 				ra.addFlashAttribute("message", "La pelicula se guardo con exitosamente");
 			} catch(Exception e) {
@@ -133,9 +127,9 @@ public class MovieController {
 		rv.setExposeModelAttributes(false);
 		try {
 			movieService.delete(idMovie);
-			ra.addFlashAttribute("message", "La pel�cula fue removida con �xito");			
+			ra.addFlashAttribute("message", "La película fue removida con éxito");			
 		} catch (Exception e) {
-			ra.addFlashAttribute("message", "No se pudo remover la pel�cula");
+			ra.addFlashAttribute("message", "No se pudo remover la película");
 			e.printStackTrace();
 		}
 		return rv;
