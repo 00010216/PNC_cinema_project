@@ -132,5 +132,10 @@ public class ShowtimeServiceImpl implements ShowtimeService{
 	    SimpleDateFormat formatter = new SimpleDateFormat(format);
 	    return formatter.parse(date);
 	}
+
+	@Override
+	public Showtime findById(Integer id) throws DataAccessException {
+		return str.findById(id).get();
+	}
 	
 }

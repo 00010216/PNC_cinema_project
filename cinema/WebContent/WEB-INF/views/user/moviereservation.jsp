@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,7 +17,7 @@
 	<main role="main" class="m-4">
 			<div class = "m-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2">${movietitle}</h1>
+            <h1 class="h2">${showtime.movie.title}</h1>
           </div>
 	
 	        
@@ -26,8 +28,9 @@
 	          	<form  action = "${pageContext.request.contextPath}/admin/user/ticket/save"><!--:form action = "${pageContext.request.contextPath}/admin/user/ticket/save" method = "POST" modelAttribute = "ticket"-->
 		          <input type="hidden">
 		          <div class = "row">
-		          <div class = "col-md-4 mb-3"><h2> <span class="badge badge-danger">2D sub <!-- obtner formato --></span></h2></div>
-		         	<div class = "col-md-8 mb-3"><h2> <span class="badge badge-secondary">Dia: 2019-03-21 <!-- obtner formato --> Hora: 12:00</span></h2></div>
+		          <div class = "col-md-4 mb-3"><h2> <span class="badge badge-danger">${showtime.showtimeFormat.name}</span></h2></div>
+		         	<div class = "col-md-8 mb-3"><h2> <span class="badge badge-secondary">Dia: <fmt:formatDate value="${showtime.showdate}" pattern="dd-MM-yyyy"/>
+		         	<!-- obtner formato --> Hora: <fmt:formatDate value="${showtime.schedule}" pattern="HH:mm"/> </span></h2></div>
 		          </div>
 		           	
 		           	<div class="row mt-4 ">
@@ -64,8 +67,8 @@
                         </thead>
                         <tbody>
 								<tr>
-									<td><strong>$</strong><!-- jalar valor de precio por el formato elegido --></td>
-									<td><input type="text" class="form-control" id="asientos" ></td>
+									<td><strong>$</strong><fmt:formatNumber value="${showtime.price}" type="currency" /></td>
+									<td><input type="text" class="form-control" id="asientos"></td>
 									<td><strong>$</strong><!-- valor calculado --></td>
 								</tr>        
                         </tbody>

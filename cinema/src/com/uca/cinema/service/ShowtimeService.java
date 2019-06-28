@@ -14,6 +14,8 @@ public interface ShowtimeService {
 	
 	public ShowtimeDTO findOne(Integer id) throws DataAccessException;
 	
+	public Showtime findById(Integer id) throws DataAccessException;
+	
 	public Showtime save(ShowtimeDTO sh) throws DataAccessException, ParseException;
 	
 	public boolean isAvailable(ShowtimeDTO sh) throws DataAccessException;

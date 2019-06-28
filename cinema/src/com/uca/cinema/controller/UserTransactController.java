@@ -17,7 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.uca.cinema.domain.CUser;
 import com.uca.cinema.domain.Movie;
+import com.uca.cinema.domain.Showtime;
 import com.uca.cinema.service.MovieService;
+import com.uca.cinema.service.ShowtimeService;
 
 @Controller
 @SessionAttributes(MainController.USER_SESSION)
@@ -27,6 +29,9 @@ public class UserTransactController {
 	/*VISTAS DE USUARIO*/
 	@Autowired
 	MovieService movieService;
+	
+	@Autowired
+	ShowtimeService showtimeService;
 	
 	@ModelAttribute("auth")
 	public boolean authUser(HttpSession session, @SessionAttribute(name = MainController.USER_SESSION, required = false) CUser loggeduser) {
@@ -72,23 +77,22 @@ public class UserTransactController {
 	}
 	
 	/*Metodo debe cambiarse a post pq recibira datos de la funcion tambien y de usuario*/
-	@RequestMapping("/movie/reservation/{idMovie}")
-	public String openForm(@PathVariable Integer idMovie, ModelMap m, @ModelAttribute("auth") boolean auth){
+	@RequestMapping("/movie/reservation/{idShowtime}")
+	public String openForm(@PathVariable Integer idShowtime, ModelMap m, @ModelAttribute("auth") boolean auth){
 		if(!auth) {
 			m.clear();
 			return "redirect:/";
 		}
 		try {
-			Movie movie= movieService.findOne(idMovie);
-			String movieTitle = movie.getTitle();
-			m.addAttribute("movietitle", movieTitle);
+			Showtime showtime = showtimeService.findById(idShowtime);
+			m.addAttribute("showtime", showtime);
 			//mostrar informacion de la funcion elegida
 			//mostrar saldo del usuario
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		return "/moviereservation";
+		return "user/moviereservation";
 	}
 	
 	
