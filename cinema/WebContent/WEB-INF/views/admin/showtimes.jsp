@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Funciones</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-material-design.min.css">
 <link href="${pageContext.request.contextPath}/resources/css/dashboard.css" rel="stylesheet">
 </head>
@@ -25,18 +25,25 @@
               </button>
             </div>
           </div>
-               <c:if test = "${not empty message}">
-            	<div class="alert alert-success alert-dismissible fade show" role="alert" style="width: 90%;">
-				  ${message}
-				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				    <span aria-hidden="true">&times;</span>
-				  </button>
-				</div>                     		
-      		</c:if> 
+			<c:if test = "${not empty message}">
+			<div class="alert alert-dark alert-dismissible fade show" role="alert" style="width: 90%;">
+				${message}
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>                     		
+			</c:if> 
 
-		${nolist}
+			<c:if test = "${not empty nolist}">
+			<div class="alert alert-primary alert-dismissible fade show" role="alert" style="width: 90%;">
+			${nolist}
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>                     		
+			</c:if>
 		<!-- Tabla de funciones -->
-		<div class = "table-responsive-sm" style="height: 450px;overflow-y: scroll;padding-right: 20px;">
+		<div class = "table-responsive-sm" style="overflow-y: scroll;padding-right: 20px;">
 		   <table class="table" >
                         <thead>
                             <tr>
@@ -62,17 +69,22 @@
 									<td>${st.theater.name}</td>
 									<td>${st.showtimeFormat.name}</td>
 									<td>${st.avaliableSeats}</td>
-									<td>${st.price}</td>
+									<td><fmt:formatNumber value="${st.price}" type="currency" /></td>
 									<td>${st.status}</td>
-									<td style = "padding: .001rem;">
-										<div class="btn-group d-flex justify-content-end " style="height: 40px;padding-top: 8px;">
-							                <button type = "button" class="btn btn-danger bmd-btn-fab bmd-btn-fab-sm" onclick = "">
-							                	<span data-feather="edit">
-							                </button>
-							                <button type="button" class="btn btn-danger bmd-btn-fab bmd-btn-fab-sm" onclick = "">
-							 					<span data-feather="trash-2"></span>
+									<td style="display: flex;justify-content: center;align-items: center; padding: .2rem;" >
+										
+										<div class="btn-group d-flex justify-content-end mr-3 " >
+							                <button class="btn btn-outline-danger " type="button" onclick="location.href='${pageContext.request.contextPath}/admin/showtime/edit/${st.idShowtime}'" >
+												<span data-feather="edit">								
 											</button>
-					              		</div>
+											<!-- Agregar funcionalidad de activar y desactivar -->
+							                <button class="btn btn-outline-danger " type="button" onclick="" >
+												<span data-feather="lock"></span>						
+											</button>
+											<button class="btn btn-outline-danger  " type="button" onclick="" >
+												<span data-feather="unlock"></span>						
+											</button>
+              							</div>
                                     </td>
 								</tr>
 							</c:forEach>
@@ -80,10 +92,6 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-    </div>
-    </div>
   	</main>
 
     <%@include file="footer.jsp" %>

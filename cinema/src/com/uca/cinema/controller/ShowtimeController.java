@@ -10,10 +10,14 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -29,7 +33,6 @@ import com.uca.cinema.repositories.ShowtimeFormatRepository;
 import com.uca.cinema.service.MovieService;
 import com.uca.cinema.service.ShowtimeService;
 import com.uca.cinema.service.TheaterInterface;
-import com.uca.cinema.service.TheaterService;
 
 @Controller
 @SessionAttributes(MainController.USER_SESSION)
@@ -51,9 +54,8 @@ public class ShowtimeController {
 	ShowtimeFormatRepository stfRepository;
 	
 	@ModelAttribute("auth")
-	public boolean authUser(HttpSession session) {
-		CUser u = (CUser) session.getAttribute(MainController.USER_SESSION);
-		return u.getIsadmin() && u.getLoggedin();
+	public boolean authUser(HttpSession session, @SessionAttribute(name = MainController.USER_SESSION, required = false) CUser loggeduser) {
+		return loggeduser != null ? loggeduser.getIsadmin() && loggeduser.getLoggedin() : false;
 	}
 	
 	@ModelAttribute("movies")
@@ -90,7 +92,11 @@ public class ShowtimeController {
 	}
 	
 	@RequestMapping("/showtimes")
-	public ModelAndView showtimeslist() {
+	public ModelAndView showtimeslist(ModelMap map, @ModelAttribute("auth") boolean auth) {
+		if(!auth) {
+			map.clear();
+			return new ModelAndView("redirect:/");
+		}
 		ModelAndView mav = new ModelAndView();
 		List<Showtime> showtimes = null;
 		try {
@@ -107,8 +113,13 @@ public class ShowtimeController {
 	}
 	
 	@RequestMapping(path="/saveShowtime", method = RequestMethod.POST)
-	public ModelAndView saveStore(@Valid @ModelAttribute("showtimeDTO") ShowtimeDTO showtimeDTO, BindingResult result, RedirectAttributes ra,HttpServletRequest req){
+	public ModelAndView saveStore(@Valid @ModelAttribute("showtimeDTO") ShowtimeDTO showtimeDTO,
+			BindingResult result, RedirectAttributes ra,HttpServletRequest req, @ModelAttribute("auth") boolean auth){
 		ModelAndView mav = new ModelAndView();
+		if (!auth) {
+			mav.clear();
+			return new ModelAndView("redirect:/");
+		}
 		if(result.hasErrors()) {
 			log.info("tiene errores");
 			mav.addObject("showtimeDTO", showtimeDTO);
@@ -145,5 +156,21 @@ public class ShowtimeController {
 		mav.addObject("showtimeDTO", new ShowtimeDTO());
 		mav.setViewName("admin/showtimeform");
 		return mav;
+	}
+	
+	@RequestMapping("/showtime/edit/{id}")
+	public String editStore(@PathVariable("id") Integer code, ModelMap m, @ModelAttribute("auth") boolean auth){
+		if(!auth) {
+			m.clear();
+			return "redirect:/";
+		}
+		try {
+			ShowtimeDTO e = showtimeService.findOne(code);
+			m.addAttribute("showtimeDTO", e);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return "admin/showtimeform";
 	}
 }

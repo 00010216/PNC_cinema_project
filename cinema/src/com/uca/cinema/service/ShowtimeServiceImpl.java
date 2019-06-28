@@ -46,8 +46,22 @@ public class ShowtimeServiceImpl implements ShowtimeService{
 	}
 
 	@Override
-	public Showtime findOne(Integer id) throws DataAccessException {
-		return str.findById(id).get();
+	public ShowtimeDTO findOne(Integer id) throws DataAccessException {
+		Showtime showtime = str.findById(id).get();
+		ShowtimeDTO showtimeDTO = new ShowtimeDTO();
+		showtimeDTO.setAvaliableSeats(showtime.getAvaliableSeats());
+		showtimeDTO.setCreatedBy(showtime.getCreatedBy());
+		showtimeDTO.setCreatedDate(showtime.getCreatedDate());
+		showtimeDTO.setIdmovie(showtime.getMovie().getIdMovie());
+		showtimeDTO.setIdShowtime(showtime.getIdShowtime());
+		showtimeDTO.setIdShowtimeFormat(showtime.getShowtimeFormat().getIdStFormat());
+		showtimeDTO.setIdTheater(showtime.getTheater().getIdTheater());
+		showtimeDTO.setPrice(showtime.getPrice());
+		showtimeDTO.setSchedule(new SimpleDateFormat("HH:mm").format(showtime.getSchedule()));
+		showtimeDTO.setShowdate(new SimpleDateFormat("yyyy-MM-dd").format(showtime.getShowdate()));
+		showtimeDTO.setStatus(showtime.getStatus());
+		
+		return showtimeDTO;
 	}
 
 	@Override
@@ -96,7 +110,7 @@ public class ShowtimeServiceImpl implements ShowtimeService{
 		log.info("hora recibida:"+sh.getSchedule());
 		
 		try {
-			showdate = parseDate(sh.getShowdate(), "yyyy-MM-dd");
+			showdate = new SimpleDateFormat("yyyy-MM-dd").parse(sh.getShowdate());
 			schedule = new SimpleDateFormat("HH:mm").parse(sh.getSchedule());
 			log.info("hora parseada:"+schedule);
 		}catch(ParseException e) {
@@ -104,12 +118,13 @@ public class ShowtimeServiceImpl implements ShowtimeService{
 		}
 		
 		log.info("idtheater:"+sh.getIdTheater());
-		Showtime available = str.isAvailable(showdate, schedule,
-				schedule, String.valueOf(duration), sh.getIdTheater());
-		if(available!=null)
-			log.info("is available - Funcion obtenida"+available.getIdShowtime());
+		
+		Showtime testshowtime = str.isAvailable(showdate, schedule,
+				schedule, String.valueOf(duration)+" minutes", sh.getIdTheater());
+		if(testshowtime!=null)
+			log.info("no disponible - Funcion obtenida"+testshowtime.getIdShowtime());
 		else log.info("el horario esta disponible");
-		return available != null;
+		return testshowtime != null;
 	}
 
 	private Date parseDate(String date, String format) throws ParseException

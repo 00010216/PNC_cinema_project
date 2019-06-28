@@ -18,15 +18,14 @@
         	<h1 class="h2">Función</h1>
     	</div>
 	    <div class="container">
-			<c:if test = "${not empty message}">
-			<div class="row valign-wrapper">
-			    <div class="col s12">
-			        <div class="card-panel light-blue lighten-4">
-			        <span>${message}</span>
-			        </div>
-			    </div>
-			</div>
-			</c:if>
+		<c:if test = "${not empty message}">
+		<div class="alert alert-warning alert-dismissible fade show" role="alert" style="width: 90%;">
+			${message}
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		</div>                     		
+		</c:if> 
 	      <div class="row">
 	        <div class="col-md-4 order-md-2 mb-4">
 	        

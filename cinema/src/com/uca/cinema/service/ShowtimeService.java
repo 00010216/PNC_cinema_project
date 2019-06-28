@@ -12,7 +12,7 @@ public interface ShowtimeService {
 	
 	public List<Showtime> findAll() throws DataAccessException;
 	
-	public Showtime findOne(Integer id) throws DataAccessException;
+	public ShowtimeDTO findOne(Integer id) throws DataAccessException;
 	
 	public Showtime save(ShowtimeDTO sh) throws DataAccessException, ParseException;
 	

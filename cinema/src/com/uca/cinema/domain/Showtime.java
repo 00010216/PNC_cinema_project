@@ -1,15 +1,12 @@
 package com.uca.cinema.domain;
 
 import javax.persistence.*;
+
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-
-/**
- * The persistent class for the showtime database table.
- * 
- */
 @Entity
 public class Showtime  {
 	@Id
@@ -28,7 +25,7 @@ public class Showtime  {
 	@Column(name="created_date")
 	private Date createdDate;
 
-	private double price;
+	private BigDecimal price;
 
 	@Temporal(TemporalType.TIME)
 	private Date schedule;
@@ -104,11 +101,11 @@ public class Showtime  {
 		this.createdDate = createdDate;
 	}
 
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return this.price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 

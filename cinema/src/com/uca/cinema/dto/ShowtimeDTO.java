@@ -1,5 +1,6 @@
 package com.uca.cinema.dto;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class ShowtimeDTO {
@@ -8,7 +9,7 @@ public class ShowtimeDTO {
 
 	private Integer avaliableSeats;
 
-	private double price;
+	private BigDecimal price;
 
 	private String schedule;
 
@@ -54,11 +55,11 @@ public class ShowtimeDTO {
 		this.createdBy = createdBy;
 	}
 
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 

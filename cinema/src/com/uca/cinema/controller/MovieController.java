@@ -125,9 +125,9 @@ public class MovieController {
 		rv.setExposeModelAttributes(false);
 		try {
 			movieService.delete(idMovie);
-			ra.addFlashAttribute("message", "La pel�cula fue removida con �xito");			
+			ra.addFlashAttribute("message", "La película fue removida con éxito");			
 		} catch (Exception e) {
-			ra.addFlashAttribute("message", "No se pudo remover la pel�cula");
+			ra.addFlashAttribute("message", "No se pudo remover la película");
 			e.printStackTrace();
 		}
 		return rv;
