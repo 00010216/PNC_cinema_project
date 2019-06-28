@@ -1,22 +1,26 @@
 console.log("Entro");
 $(document).ready(function() {
-	
-	setTimeout( function() {
 		
-		$('.alert').alert('close');
-	}, 5000);
 	
-	$('.deleteButton').click( function() {
-		var dataUrl = $(this).attr('data-url');
-		$('#deleteModalButton').attr('data-url', dataUrl);
-		$('.modal-body').html('¿Desea eliminar el registro #' + $(this).attr('data-id') + '?');
-		$('#deleteModal').modal('toggle');
-	});
+	$('.logButton').click( function() {
+		var logHeaderLabel = $('#theaterModalHeader');
+		var idUser = $(this).attr('data-id');
+		var name = $(this).attr('data-name');
+		var value = $(this).attr('data-value');
+		console.log(value);
+		console.log(value == 'false');
+		
+		logHeaderLabel.html('¿Desea '+ $(this).attr('data-label-status') + ' la sala <strong>'  + name + '</strong>?');				
+							
+		$('#user-hidden').val(idUser);
+		$('#status-hidden').val(value);						
+		
+		
+		$('#logModal').modal('toggle');
+	});		
 	
-	$('#deleteModalButton').click( function() {
-		var dataUrl = $(this).attr('data-url');
-		document.location.replace(dataUrl);
-		$('#deleteModal').modal('toggle');
+	$('#submitFormButton').click( function() {
+		$("#modalForm").submit();
 	});
 	
 });

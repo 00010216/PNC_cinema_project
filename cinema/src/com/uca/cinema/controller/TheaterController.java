@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -139,6 +140,18 @@ public class TheaterController {
 			e.printStackTrace();
 		}	             
 
+		return "redirect:/admin/theaters";
+	}
+	
+	@RequestMapping("/admin/updateTheaterStatus")
+	public String updateTheaterStatus(@RequestParam boolean status, @RequestParam String theater_id, ModelMap map,RedirectAttributes redirectAttributes){
+		
+		try {
+			theaterService.changeStatus(theater_id, status);			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 		return "redirect:/admin/theaters";
 	}
 	
