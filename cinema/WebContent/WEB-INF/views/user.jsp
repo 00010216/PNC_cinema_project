@@ -15,22 +15,20 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
-	<%@include file="header.jsp" %>
+
 	<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
             <h1 class="h2">Usuarios</h1>
           </div>
     <div class="container">
       <div class="row">
-        <div class="col-md-0 order-md-2 mb-4">
-        
-        </div>
         <div class="col-md-12 order-md-1" style="display:flex; justify-content: center; align-items: center">
         	 
              <form:form action="${pageContext.request.contextPath}/admin/${actionForm}" method="POST" modelAttribute="CUser" style="padding: 8px;width: 100%;">
              <div style="display: flex;flex-direction: row;/*height: 10%;*/margin-bottom: 8px;justify-content: center;align-items: center;">
              
                  <h3 style="flex: 10;">Registro de Usuario</h3>
+                 <!-- Arreglar link  -->
                  <button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/users'" type="button" style="flex: 2;height: 37px; color:#CC3333;">
                      <i class="fa fa-plus"></i>
                      Regresar	                	
@@ -136,6 +134,15 @@
         </ul>
       </footer>
     </div>
-  <%@include file="footer.jsp" %>
+ <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="../../../../assets/js/vendor/popper.min.js"></script>
+    <script src="../../../../dist/js/bootstrap-material-design.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+    <!-- Icons -->
+    <script src="${pageContext.request.contextPath}/resources/js/feather.js"></script>
+    <script>
+      feather.replace()
+    </script>
 </body>
 </html>

@@ -59,7 +59,7 @@ public class UserController {
 		mav.addObject("municipalities", municipalities);
 		mav.addObject("actionForm", "addUser");
 		
-		mav.setViewName("admin/user");
+		mav.setViewName("user");
 		
 		return mav;
 	}

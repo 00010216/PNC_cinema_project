@@ -22,12 +22,6 @@
 	<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
             <h1 class="h2">Usuarios</h1>
-            <div class="btn-toolbar mb-2 mb-md-0">
-              <button class="btn btn-large btn-outline-secondary" onclick = "window.location.href='${pageContext.request.contextPath}/admin/userForm'">
-                <span data-feather="plus-circle"></span>
-                Agregar Usuario
-              </button>
-            </div>
           </div>
    
             <c:if test = "${message != null }">
@@ -66,7 +60,7 @@
 										
 										<div class="btn-group d-flex justify-content-end mr-3 " >
 							                <button class="btn btn-outline-danger " type="button" onclick="location.href='${pageContext.request.contextPath}/admin/editUserForm?user_id=${user.getIdUser()}'" >
-												<span data-feather="edit">								
+												<span data-feather="eye">								
 											</button>
 											<!-- Agregar funcionalidad de activar y desactivar -->
 							                <button class="btn btn-outline-danger " type="button" onclick="" >
