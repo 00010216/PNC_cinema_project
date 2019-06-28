@@ -25,6 +25,11 @@ public class MovieServiceImpl implements MovieService{
 	public List<Movie> findAll() throws DataAccessException {
 		return movieRepository.findAll();
 	}
+	
+	@Override
+	public List<Movie> findAllActive() throws DataAccessException {
+		return movieRepository.findByStatus(true);
+	}
 
 	@Override
 	public Movie findOne(Integer id) throws DataAccessException {
@@ -52,5 +57,10 @@ public class MovieServiceImpl implements MovieService{
 	public void delete(Integer id) throws DataAccessException {
 		Movie m = findOne(id);
 		movieRepository.delete(m);	
+	}
+
+	@Override
+	public Movie findMovieWithShows(Integer id) throws DataAccessException {
+		return movieRepository.fetchMovieWithShowtimesById(id);
 	}
 }

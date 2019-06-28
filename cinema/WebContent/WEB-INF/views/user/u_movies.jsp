@@ -29,7 +29,7 @@
 	             <c:forEach items="${movies}" var="movie">
 			            <!-- Debe mandar id asi con el controller manda a la otra vista el objeto -->
 			            <img class="slider-image img-fluid card-img-right flex-auto d-none d-md-block" style="height: 22rem;width: 16rem; padding: 1rem;" src="${movie.posterLink}" alt="Card image cap"
-			            onclick = "window.location.href='${pageContext.request.contextPath}/admin/user/movie/detail/${movie.idMovie}'">
+			            onclick = "window.location.href='${pageContext.request.contextPath}/user/movie/detail/${movie.idMovie}'">
 	            </c:forEach>  
 	        </div>
 	        <div class="button-holder">

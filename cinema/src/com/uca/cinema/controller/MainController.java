@@ -35,7 +35,7 @@ public class MainController {
 		if (user != null && user.getLoggedin()) {
 			if(user.getIsadmin())
 				return "redirect:/admin/movies";
-			else return "redirect:/user/home";
+			else return "redirect:/user/movies";
 		}
 		return "redirect:/login";
 	}
@@ -45,7 +45,7 @@ public class MainController {
 		if (user != null && user.getLoggedin()) {
 			if(user.getIsadmin())
 				return "redirect:/admin/movies";
-			else return "redirect:/user/home";
+			else return "redirect:/user/movies";
 		}
 		//model.clear();
 		return "login";
@@ -67,21 +67,25 @@ public class MainController {
 			CUser user  = loginService.authUser(username, password);
 			if (user != null) {
 				if(user.getLoggedin()) {
-					ra.addFlashAttribute("error", "El usuario especificado ya est� conectado. Por favor cierre otras cuentas para continuar.");
-				}else {
+					ra.addFlashAttribute("error", "El usuario especificado ya está conectado. Por favor cierre otras cuentas para continuar.");
+				} else if (!user.getStatus()){
+					ra.addFlashAttribute("error", "Su cuenta no ha sido activada. Contáctese con el administrador");
+				}
+				else {
 					loginService.sessionUser(true, user.getIdUser());
 					user.setLoggedin(true);
 					session.setAttribute(USER_SESSION, user);
 					if(user.getIsadmin())
 						return "redirect:/admin/movies";
-					else return "redirect:/user/home";
+					else 
+						return "redirect:/user/movies";
 				}
 			} else {
 				ra.addFlashAttribute("error", "Credenciales incorrectas");
 			}
 		}
 		catch(Exception e) {
-			ra.addFlashAttribute("error","Algo sali� mal - No se pudo conectar, int�ntelo m�s tarde");
+			ra.addFlashAttribute("error","Algo salió mal - No se pudo conectar, inténtelo mas tarde");
 			e.printStackTrace();
 		}
 		return "redirect:/login";

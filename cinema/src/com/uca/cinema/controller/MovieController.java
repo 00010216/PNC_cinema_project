@@ -26,7 +26,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.uca.cinema.domain.CUser;
 import com.uca.cinema.domain.Movie;
-import com.uca.cinema.domain.Ticket;
 import com.uca.cinema.service.MovieService;
 
 @Controller
@@ -64,7 +63,11 @@ public class MovieController {
 	}
 	
 	@RequestMapping("/addMovie")
-	public ModelAndView storeForm() {
+	public ModelAndView storeForm(ModelMap map, @ModelAttribute("auth") boolean auth) {
+		if(!auth) {
+			map.clear();
+			return new ModelAndView("redirect:/");
+		}
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("movie",  new Movie());
 		mav.setViewName("admin/moviesform");
@@ -150,92 +153,4 @@ public class MovieController {
 		}
 		return "admin/moviedetail";
 	}
-	
-	/*Para probar vistas de usuario, habra que cambiar links si es necesario*/
-	
-	/*VISTAS DE USUARIO*/
-	
-	@RequestMapping("/user/movies")
-	public ModelAndView show() {
-		ModelAndView mav = new ModelAndView();
-		List<Movie> movies = null;
-		try {
-			movies = movieService.findAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if(!movies.isEmpty())
-			mav.addObject("movies", movies);
-		else
-			mav.addObject("nolist", "No se encontraron películas");
-		mav.setViewName("user/u_movies");
-		return mav;
-	}
-	
-
-	@RequestMapping("/user/movie/detail/{idMovie}")
-	public String showUDetail(@PathVariable Integer idMovie, Model m){
-		try {
-			Movie movie= movieService.findOne(idMovie);
-			m.addAttribute("movie", movie);
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		return "user/u_moviedetail";
-	}
-	
-	/*Metodo debe cambiarse a post pq recibira datos de la funcion tambien y de usuario*/
-	@RequestMapping("/user/movie/reservation/{idMovie}")
-	public String openForm(@PathVariable Integer idMovie, Model m){
-		try {
-			Movie movie= movieService.findOne(idMovie);
-			String movieTitle = movie.getTitle();
-			m.addAttribute("movietitle", movieTitle);
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		return "user/moviereservation";
-	}
-	
-	/*Guardar info de ticket y guardar y manda info a vista de ticket*/
-	
-	/**@PostMapping("/user/ticket/save")
-	ModelAndView save(@Valid @ModelAttribute Ticket ticket, BindingResult br,
-			RedirectAttributes ra,HttpServletRequest req) {
-		ModelAndView mav = new ModelAndView();
-		logger.log(Level.SEVERE, "Iniciando el metodo save");
-		
-		if (br.hasErrors()) {
-			/*ver validaciones de form con operaciones de numero asientos y saldo
-			mav.setViewName("moviereservation");
-			logger.log(Level.SEVERE, "el form tiene errores");
-		} else {
-			logger.log(Level.SEVERE, "Envio correcto, redirigir a user/ticket");
-			RedirectView rv = new RedirectView(req.getContextPath() + "/user/ticket");
-			rv.setExposeModelAttributes(false);
-			try {
-				//ticketService.save(ticket); guardar info de ticket
-				logger.log(Level.SEVERE, "Se ingreso a la base de datos");
-				ra.addFlashAttribute("success", true);	
-				ra.addFlashAttribute("message", "Su reservacion se hizo exitosamente");
-			} catch(Exception e) {
-				e.printStackTrace();
-				ra.addFlashAttribute("success", false);
-				ra.addFlashAttribute("message", "No se ha podido generar reservacion, intententelo mas tarde");
-			}
-			mav.addObject("ticket", ticket);
-			mav.setView(rv);
-		}
-		return mav;
-	}**/
-	
-	@RequestMapping("/user/ticket/save")
-	public ModelAndView showTicket() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("user/ticket");
-		return mav;
-	}
-	
 }

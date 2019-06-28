@@ -10,7 +10,11 @@ public interface MovieService {
 	
 	public List<Movie> findAll() throws DataAccessException;
 	
+	public List<Movie> findAllActive() throws DataAccessException;
+	
 	public Movie findOne(Integer id) throws DataAccessException;
+	
+	public Movie findMovieWithShows(Integer id) throws DataAccessException;
 	
 	public Movie save(Movie mv) throws DataAccessException;
 	

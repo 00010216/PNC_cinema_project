@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -62,24 +63,21 @@ margin-bottom: 0.3rem;
 		   <table class="table" >
                         <thead>
                             <tr>
-                       
                                 <th>Día</th>
                                 <th>Hora</th>
-                              
                                 <th>Formato</th>
-                      
                                 <th style="width: 150px;"></th>
                             </tr>
                         </thead>
                         <tbody>
-                        	<c:forEach items="${showtimes}" var="st"> 
+                        	<c:forEach items="${movie.showtimes}" var="st"> 
 								<tr>
 									<td>${st.showdate}</td>
 									<td>${st.schedule}</td>
-									<td>${st.format}</td>
-                                   <td  >
+									<td>${st.showtimeFormat.name}</td>
+                                   	<td>
 										<div class="btn-toolbar mb-2 mb-md-0">
-							                <button class="btn btn-large btn-raised btn-danger " type="button" onclick="window.location.href='${pageContext.request.contextPath}/admin/user/movie/reservation/${movie.idMovie}'" >
+							                <button class="btn btn-large btn-raised btn-danger " type="button" onclick="window.location.href='${pageContext.request.contextPath}/user/movie/reservation/${movie.idMovie}'" >
 												<span data-feather="bookmark"></span> 
 												Reservar			
 											</button>
