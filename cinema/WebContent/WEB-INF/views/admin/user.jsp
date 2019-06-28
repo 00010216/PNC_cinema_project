@@ -64,7 +64,7 @@
                  </div>	
                  <div class="col-md-4">
                      <div class="form-group">
-                         <label for="capacity">Pais</label>
+                         <label for="capacity">Pais de origen</label>
                          <form:select class="form-control" multiple="false" path="country.idCountry" items="${countries}" itemLabel="name" itemValue="idCountry" />
                                     				
                          
