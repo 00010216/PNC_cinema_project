@@ -137,5 +137,15 @@ public class ShowtimeServiceImpl implements ShowtimeService{
 	public Showtime findById(Integer id) throws DataAccessException {
 		return str.findById(id).get();
 	}
+
+	@Override
+	public void changeStatus(String theater_id, boolean status){
+		Showtime s = str.findById(Integer.valueOf(theater_id)).get();
+		s.setStatus(status);
+		str.save(s);
+	}
+
+	
+	
 	
 }

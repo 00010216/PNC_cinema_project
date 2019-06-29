@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -172,5 +173,17 @@ public class ShowtimeController {
 			e.printStackTrace();
 		}
 		return "admin/showtimeform";
+	}
+	
+	@RequestMapping("/updateShowtimeStatus")
+	public String updateTheaterStatus(@RequestParam boolean status, @RequestParam String theater_id, ModelMap map,RedirectAttributes redirectAttributes){
+		
+		try {
+			showtimeService.changeStatus(theater_id, status);			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/admin/theaters";
 	}
 }

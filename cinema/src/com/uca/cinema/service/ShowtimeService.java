@@ -19,4 +19,6 @@ public interface ShowtimeService {
 	public Showtime save(ShowtimeDTO sh) throws DataAccessException, ParseException;
 	
 	public boolean isAvailable(ShowtimeDTO sh) throws DataAccessException;
+	
+	public void changeStatus(String theater_id, boolean status) throws DataAccessException;
 }
