@@ -14,23 +14,24 @@ import java.sql.Timestamp;
 public class LogAction  {
 
 	@Id
-	@SequenceGenerator(name="LOG_ACTION_IDLOG_GENERATOR", sequenceName="LOG_ACTION_ID_LOG_SEQ")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="LOG_ACTION_IDLOG_GENERATOR")
-	@Column(name="id_log")
+	@SequenceGenerator(name="log_action_id_log_seq", sequenceName="log_action_id_log_seq", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="log_action_id_log_seq")
+	@Column(name="id_log")	
 	private Integer idLog;
 
 	@Column(name="created_at")
 	private Timestamp createdAt;
 
 	private String description;
-
-	@Column(name="id_user")
-	private Integer idUser;
+			
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_user")
+	private CUser CUser;
 
 	//bi-directional many-to-one association to CUser
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_admin")
-	private CUser CUser;
+	private CUser CAdmin;
 
 	public LogAction() {
 	}
@@ -57,15 +58,7 @@ public class LogAction  {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public Integer getIdUser() {
-		return this.idUser;
-	}
-
-	public void setIdUser(Integer idUser) {
-		this.idUser = idUser;
-	}
+	}	
 
 	public CUser getCUser() {
 		return this.CUser;
@@ -73,6 +66,14 @@ public class LogAction  {
 
 	public void setCUser(CUser CUser) {
 		this.CUser = CUser;
+	}
+	
+	public CUser getCAdmin() {
+		return this.CAdmin;
+	}
+
+	public void setCAdmin(CUser CAdmin) {
+		this.CAdmin = CAdmin;
 	}
 
 }

@@ -95,8 +95,12 @@ public class CUser  {
 	private Country country;
 
 	//bi-directional many-to-one association to LogAction
+	@OneToMany(mappedBy="CAdmin")
+	private List<LogAction> logActionsAdmin;
+	
+	//bi-directional many-to-one association to LogAction
 	@OneToMany(mappedBy="CUser")
-	private List<LogAction> logActions;
+	private List<LogAction> logActionsUser;
 
 	//bi-directional many-to-one association to Ticket
 	@OneToMany(mappedBy="CUser")
@@ -272,28 +276,50 @@ public class CUser  {
 		this.country = country;
 	}
 
-	public List<LogAction> getLogActions() {
-		return this.logActions;
+	public List<LogAction> getLogActionsAdmin() {
+		return this.logActionsAdmin;
 	}
 
-	public void setLogActions(List<LogAction> logActions) {
-		this.logActions = logActions;
+	public void setLogActionsAdmin(List<LogAction> logActions) {
+		this.logActionsAdmin = logActions;
 	}
 
-	public LogAction addLogAction(LogAction logAction) {
-		getLogActions().add(logAction);
+	public LogAction addLogActionAdmin(LogAction logAction) {
+		getLogActionsAdmin().add(logAction);
 		logAction.setCUser(this);
 
 		return logAction;
 	}
 
-	public LogAction removeLogAction(LogAction logAction) {
-		getLogActions().remove(logAction);
+	public LogAction removeLogActionAdmin(LogAction logAction) {
+		getLogActionsAdmin().remove(logAction);
 		logAction.setCUser(null);
 
 		return logAction;
 	}
+	
+	public List<LogAction> getLogActionsUser() {
+		return this.logActionsUser;
+	}
 
+	public void setLogActionsUser(List<LogAction> logActions) {
+		this.logActionsUser = logActions;
+	}
+
+	public LogAction addLogActionUser(LogAction logAction) {
+		getLogActionsUser().add(logAction);
+		logAction.setCUser(this);
+
+		return logAction;
+	}
+
+	public LogAction removeLogActionUser(LogAction logAction) {
+		getLogActionsUser().remove(logAction);
+		logAction.setCUser(null);
+
+		return logAction;
+	}
+	
 	public List<Ticket> getTickets() {
 		return this.tickets;
 	}

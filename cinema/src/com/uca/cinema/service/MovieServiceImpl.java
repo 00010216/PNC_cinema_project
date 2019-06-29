@@ -63,4 +63,12 @@ public class MovieServiceImpl implements MovieService{
 	public Movie findMovieWithShows(Integer id) throws DataAccessException {
 		return movieRepository.fetchMovieWithShowtimesById(id);
 	}
+	
+	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void changeStatus(String movie_id, boolean status) throws DataAccessException {		
+		Movie m = findOne(Integer.valueOf(movie_id));
+		m.setStatus(status);
+		movieRepository.save(m);
+	}
 }

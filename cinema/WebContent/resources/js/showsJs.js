@@ -1,7 +1,6 @@
 console.log("Entro");
 $(document).ready(function() {
 		
-	
 	$('.logButton').click( function() {
 		var logHeaderLabel = $('#theaterModalHeader');
 		var idUser = $(this).attr('data-id');
@@ -10,7 +9,7 @@ $(document).ready(function() {
 		console.log(value);
 		console.log(value == 'false');
 		
-		logHeaderLabel.html('¿Desea '+ $(this).attr('data-label-status') + ' la sala <strong>'  + name + '</strong>?');				
+		logHeaderLabel.html('¿Desea '+ $(this).attr('data-label-status') + ' la funcion  #<strong>'  + name + '</strong>?');				
 							
 		$('#user-hidden').val(idUser);
 		$('#status-hidden').val(value);						

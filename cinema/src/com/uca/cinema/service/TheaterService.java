@@ -7,10 +7,12 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.uca.cinema.domain.Movie;
 import com.uca.cinema.domain.Theater;
 import com.uca.cinema.repositories.TheaterRepository;
 
@@ -62,6 +64,14 @@ public class TheaterService implements TheaterInterface{
 	public void deleteById(Integer id) {
 		Theater t = theaterRepository.getOne(id);
 		theaterRepository.delete(t);
+	}
+
+	@Override
+	public void changeStatus(String theater_id, boolean status) throws DataAccessException {
+		Theater t = findOne(Integer.valueOf(theater_id));
+		t.setStatus(status);
+		theaterRepository.save(t);
+		
 	}
 	
 }
