@@ -1,5 +1,6 @@
 package com.uca.cinema.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -78,7 +81,8 @@ public class UserTransactController {
 	
 	/*Metodo debe cambiarse a post pq recibira datos de la funcion tambien y de usuario*/
 	@RequestMapping("/movie/reservation/{idShowtime}")
-	public String openForm(@PathVariable Integer idShowtime, ModelMap m, @ModelAttribute("auth") boolean auth){
+	public String openForm(@PathVariable Integer idShowtime, ModelMap m,
+			@ModelAttribute(MainController.USER_SESSION) CUser user, @ModelAttribute("auth") boolean auth){
 		if(!auth) {
 			m.clear();
 			return "redirect:/";
@@ -86,13 +90,41 @@ public class UserTransactController {
 		try {
 			Showtime showtime = showtimeService.findById(idShowtime);
 			m.addAttribute("showtime", showtime);
-			//mostrar informacion de la funcion elegida
-			//mostrar saldo del usuario
+			m.addAttribute("userbalance", user.getBalance());
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
 		return "user/moviereservation";
+	}
+	
+	@PostMapping("/ticket/save")
+	public ModelAndView validateForm(@RequestParam("usebalance") boolean usebalance, 
+				@RequestParam("balance") double balance, 
+				@RequestParam("seats") int seats, 
+				@RequestParam("idshowtime") int idshowtime,
+				ModelMap m,
+			@ModelAttribute(MainController.USER_SESSION) CUser user, @ModelAttribute("auth") boolean auth){
+		ModelAndView mav = new ModelAndView();
+		if(!auth) {
+			mav.clear();
+			return new ModelAndView("redirect:/");
+		}
+		
+		if(usebalance) {
+			double remanente = balance - user.getBalance().doubleValue();
+			if(remanente < 0) {
+				mav.addObject("message","El saldo disponible no es suficiente para completar la trasacción");
+				mav.setViewName("user/moviereservation");
+			}
+			else {
+				mav.addObject("idShowtime", idshowtime);
+				mav.addObject("remanente", remanente);
+				mav.setViewName("user/tickets");
+				//mav.addObject("", attributeValue)
+			}
+		}
+		return mav;
 	}
 	
 	
