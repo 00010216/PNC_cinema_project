@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -31,6 +35,7 @@ import com.uca.cinema.service.MunicipalityInterface;
 import com.uca.cinema.service.UserInterface;
 
 @Controller
+@SessionAttributes(MainController.USER_SESSION)
 public class UserController {
 	
 	@Autowired
@@ -41,6 +46,17 @@ public class UserController {
 	
 	@Autowired
 	UserInterface userService;
+	
+	@ModelAttribute("auth")
+	public boolean authUser(HttpSession session, @SessionAttribute(name = MainController.USER_SESSION, required = false) CUser loggeduser) {
+		return loggeduser != null ? loggeduser.getIsadmin() && loggeduser.getLoggedin() : false;
+	}			
+	
+	@ModelAttribute(MainController.USER_SESSION)
+	public CUser sessionUser(HttpSession session) {
+		return (CUser) session.getAttribute(MainController.USER_SESSION);
+	}
+	
 	
 	@RequestMapping(value="/admin/userForm")
 	public ModelAndView userRegister(Model model) {												
@@ -132,6 +148,31 @@ public class UserController {
 											
 		return redirect;
 	}
+	
+	@RequestMapping(value="/admin/updateStatus", method=RequestMethod.POST)
+	public String changeStatus(@RequestParam boolean status, @RequestParam String user_id, @RequestParam(required=false) String description, ModelMap map,RedirectAttributes redirectAttributes) {
+		String redirect = "redirect:/";					
+		try {									
+			System.out.println(status);
+			if (!status) {
+				userService.changeStatus(user_id, status, description, (CUser) map.get(MainController.USER_SESSION));
+			}
+			else {
+				userService.changeStatus(user_id, status);
+			}
+						
+            redirectAttributes.addAttribute("message", "Se actualizo el registro correctamente");
+            redirect += "admin/users";
+		}
+		catch(Exception e) {						
+			redirectAttributes.addAttribute("message", "No se pudo actualizar estado");
+            redirect += "admin/users";
+		}
+											
+		return redirect;
+	}
+	
+	
 	
 	@InitBinder     
 	public void initBinder(WebDataBinder binder){	

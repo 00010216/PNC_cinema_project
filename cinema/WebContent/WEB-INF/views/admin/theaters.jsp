@@ -67,10 +67,10 @@
 												<span data-feather="edit">								
 											</button>
 											<!-- Agregar funcionalidad de activar y desactivar -->
-							                <button class="btn btn-outline-danger " type="button" onclick="" >
+							                <button class="btn btn-outline-danger logButton" type="button" data-label-status="desactivar"  data-id="${ theater.idTheater }" data-name="${ theater.name }" data-value="false" data-toggle="modal" data-target="#theatersModal"  ${ theater.status ? "" : "disabled"}>
 												<span data-feather="lock"></span>						
 											</button>
-											<button class="btn btn-outline-danger  " type="button" onclick="" >
+											<button class="btn btn-outline-danger logButton " type="button" onclick="" data-label-status="activar"  data-id="${ theater.idTheater }" data-name="${ theater.name }" data-value="true" data-toggle="modal" data-target="#theatersModal"  ${ theater.status ? "disabled" : ""} >
 												<span data-feather="unlock"></span>						
 											</button>
               							</div>
@@ -85,6 +85,36 @@
       </div>
     </div>
   <%@include file="footer.jsp" %>
+  
+  <div class="modal fade" id="theatersModal" tabindex="-1" role="dialog" aria-labelledby="theatersModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="theaterModalHeader"></h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body"> 
+	      	<form id="modalForm" action="${pageContext.request.contextPath}/admin/updateTheaterStatus" method="POST">  
+		         <div class="row">
+		         	<div class="col-md-12">
+		         		<div class="form-group">	         				         				         					         		
+		         			<input id="status-hidden" type="hidden"  name="status"/>
+		         			<input id="user-hidden" type="hidden"  name="theater_id"/>
+		         		</div>
+		         		
+		         	</div>
+		         </div>
+	         </form>
+	      </div>
+	      <div class="modal-footer">
+	      	<button id="submitFormButton" type="button" class="btn btn-primary" type="submit">Aceptar</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>        
+	      </div>
+	    </div>
+	  </div>
+	</div>
   
   <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/theatersJs.js"></script>
